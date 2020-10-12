@@ -6,6 +6,8 @@ include <nv.h>
 resource fd_nvidiactl[fd]
 resource fd_nvidia0[fd]
 
+resource cid[int32]
+
 openat$nvidiactl(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidiactl"]], flags flags[open_flags], mode const[0]) fd_nvidiactl
 openat$nvidia0(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia0"]], flags flags[open_flags], mode const[0]) fd_nvidia0
 
@@ -79,6 +81,7 @@ ioctl$NVRM_IOCTL_CREATE_VSPACE56(fd fd_nvidia0, cmd const[0xc0384627], arg ptr[i
 # 0x2b
 ioctl$NVRM_IOCTL_CREATE(fd fd_nvidiactl, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_t])
 ioctl$NVRM_IOCTL_CREATE_2(fd fd_nvidia0, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_t])
+ioctl$NVRM_IOCTL_CREATE_CONTEXT(fd fd_nvidiactl, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_context])
 
 # more ioctls from nvrm_ioctl.h
 
@@ -154,7 +157,7 @@ nv_blacklist_addresses_t {
 # more ioctls
 
 nv_ioctl_alloc_os_event_t {
-	hClient		NvHandle
+	hClient		cid
 	hDevice		NvHandle
 	hOsEvent	NvHandle
 	fd		int32
@@ -166,7 +169,7 @@ NvHandle {
 }
 
 nv_ioctl_free_os_event_t {
-	hClient	NvHandle
+	hClient	cid
 	hDevice	NvHandle
 	fd	int32
 	Status	int32
@@ -202,7 +205,7 @@ nv_ioctl_set_numa_status_t {
 # structs taken from envytools demmt nvrm_ioctl.h
 
 nvrm_ioctl_call_t {
-	cid	int32
+	cid	cid
 	handle	int32
 	mthd	int32
 	_pad	int32
@@ -213,14 +216,14 @@ nvrm_ioctl_call_t {
 }
 
 nvrm_ioctl_destroy_t {
-	cid	int32
+	cid	cid
 	par	int32
 	handle	int32
 	status	int32
 }
 
 nvrm_ioctl_create_dma56_t {
-	cid	int32
+	cid	cid
 	_pad1	int32
 	handle	int32
 	cls	int32
@@ -235,7 +238,7 @@ nvrm_ioctl_create_dma56_t {
 }
 
 nvrm_ioctl_memory3_t {
-	cid		int32
+	cid		cid
 	par		int32
 	cls		int32
 	unk0c		int32
@@ -249,7 +252,7 @@ nvrm_ioctl_memory3_t {
 }
 
 nvrm_ioctl_vspace_map_t {
-	cid	int32
+	cid	cid
 	dev	int32
 	vspace	int32
 	handle	int32
@@ -263,7 +266,7 @@ nvrm_ioctl_vspace_map_t {
 }
 
 nvrm_ioctl_host_map56 {
-	cid		int32
+	cid		cid
 	subdev		int32
 	handle		int32
 	_pad1		int32
@@ -278,7 +281,7 @@ nvrm_ioctl_host_map56 {
 }
 
 nvrm_ioctl_create_unk34_t {
-	cid	int32
+	cid	cid
 	par	int32
 	handle	int32
 	cid2	int32
@@ -288,7 +291,7 @@ nvrm_ioctl_create_unk34_t {
 }
 
 nvrm_ioctl_unk5e_t {
-	cid	int32
+	cid	cid
 	subdev	int32
 	handle	int32
 	_pad1	int32
@@ -300,7 +303,7 @@ nvrm_ioctl_unk5e_t {
 }
 
 nvrm_ioctl_vspace_unmap_t {
-	cid	int32
+	cid	cid
 	dev	int32
 	vspace	int32
 	handle	int32
@@ -311,7 +314,7 @@ nvrm_ioctl_vspace_unmap_t {
 }
 
 nvrm_ioctl_host_unmap_t {
-	cid	int32
+	cid	cid
 	subdev	int32
 	handle	int32
 	_pad1	int32
@@ -321,7 +324,7 @@ nvrm_ioctl_host_unmap_t {
 }
 
 nvrm_ioctl_sched_fifo_t {
-	cid	int32
+	cid	cid
 	dev	int32
 	handle	int32
 	cnt	int32
@@ -335,7 +338,7 @@ nvrm_ioctl_sched_fifo_t {
 }
 
 nvrm_ioctl_create_vspace56_t {
-	cid		int32
+	cid		cid
 	par		int32
 	handle		int32
 	cls		int32
@@ -351,10 +354,20 @@ nvrm_ioctl_create_vspace56_t {
 }
 
 nvrm_ioctl_create_t {
-	cid	int32
+	cid	cid
 	par	int32
 	handle	int32
 	cls	int32
+	ptr	ptr64[in, int32]
+	status	int32
+	_pad	int32
+}
+
+nvrm_ioctl_create_context {
+	cid	const[0, int32]
+	par	const[0, int32]
+	handle	cid[opt]
+	cls	const[0, int32]
 	ptr	ptr64[in, int32]
 	status	int32
 	_pad	int32
@@ -369,7 +382,7 @@ nvrm_ioctl_create_ctx_t {
 }
 
 nvrm_ioctl_create_dev_obj {
-	cid	int32
+	cid	cid
 	handle	int32
 	unk08	int32
 	unk0c	int32
@@ -381,7 +394,7 @@ nvrm_ioctl_create_dev_obj {
 }
 
 nvrm_ioctl_create_simple {
-	cid	int32
+	cid	cid
 	par	int32
 	handle	int32
 	cls	int32
@@ -389,7 +402,7 @@ nvrm_ioctl_create_simple {
 }
 
 nvrm_ioctl_create_drv_obj {
-	cid	int32
+	cid	cid
 	par	int32
 	handle	int32
 	cls	int32
@@ -397,7 +410,7 @@ nvrm_ioctl_create_drv_obj {
 }
 
 nvrm_ioctl_get_param {
-	cid	int32
+	cid	cid
 	handle	int32
 	key	int32
 	value	int32
@@ -405,7 +418,7 @@ nvrm_ioctl_get_param {
 }
 
 nvrm_ioctl_query {
-	cid	int32
+	cid	cid
 	handle	int32
 	query	int32
 	size	int32
@@ -415,7 +428,7 @@ nvrm_ioctl_query {
 }
 
 nvrm_ioctl_unk38_t {
-	cid	int32
+	cid	cid
 	handle	int32
 	unk08	int32
 	size	int32
@@ -426,14 +439,14 @@ nvrm_ioctl_unk38_t {
 }
 
 nvrm_ioctl_disp_unk48 {
-	cid	int32
+	cid	cid
 	handle	int32
 	unk08	int32
 	_pad	int32
 }
 
 nvrm_ioctl_config {
-	cid	int32
+	cid	cid
 	handle	int32
 	unk08	int64
 	unk10	int64
@@ -453,7 +466,7 @@ nvrm_ioctl_unk52 {
 }
 
 nvrm_ioctl_bind {
-	cid	int32
+	cid	cid
 	target	int32
 	handle	int32
 	status	int32
