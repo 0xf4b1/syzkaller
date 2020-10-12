@@ -1,0 +1,13 @@
+resource fd_nvidia_modeset[fd]
+
+openat$nvidia_modeset(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia-modeset"]], flags flags[open_flags], mode const[0]) fd_nvidia_modeset
+
+# the only available ioctl that wraps the actual ioctl data
+ioctl$NVKMS_IOCTL_CMD(fd fd_nvidia_modeset, cmd const[0xc0106d00], arg ptr[inout, NvKmsIoctlParams])
+
+# actual structures unknown, ptr just points to some memory
+NvKmsIoctlParams {
+	cmd	int32
+	size	int32
+	address	ptr64[inout, array[int8, 0xc0]]
+}
