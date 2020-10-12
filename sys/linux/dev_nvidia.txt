@@ -6,8 +6,11 @@ include <nv.h>
 resource fd_nvidiactl[fd]
 resource fd_nvidia0[fd]
 
-openat$nvidiactl(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidiactl"]], flags const[O_RDONLY], mode const[0]) fd_nvidiactl
-openat$nvidia0(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia0"]], flags const[O_RDWR], mode const[0]) fd_nvidia0
+openat$nvidiactl(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidiactl"]], flags flags[open_flags], mode const[0]) fd_nvidiactl
+openat$nvidia0(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia0"]], flags flags[open_flags], mode const[0]) fd_nvidia0
+
+mmap$nvidiactl(addr vma, len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidiactl, offset const[0])
+mmap$nvidia0(addr vma, len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidia0, offset const[0])
 
 # known ioctls with definitions from kernel interface
 
@@ -56,7 +59,7 @@ ioctl$NVRM_IOCTL_VSPACE_MAP(fd fd_nvidiactl, cmd const[0xc0384657], arg ptr[inou
 # 0x34
 ioctl$NVRM_IOCTL_CREATE_UNK34(fd fd_nvidiactl, cmd const[0xc01c4634], arg ptr[inout, nvrm_ioctl_create_unk34_t])
 # 0x4e
-ioctl$NVRM_IOCTL_UNK38(fd fd_nvidiactl, cmd const[0xc038464e], arg ptr[inout, nvrm_ioctl_unk38_t])
+ioctl$NVRM_IOCTL_HOST_MAP56(fd fd_nvidiactl, cmd const[0xc038464e], arg ptr[inout, nvrm_ioctl_host_map56])
 # 0x5e
 ioctl$NVRM_IOCTL_UNK5E(fd fd_nvidiactl, cmd const[0xc028465e], arg ptr[inout, nvrm_ioctl_unk5e_t])
 # 0x58
@@ -76,6 +79,22 @@ ioctl$NVRM_IOCTL_CREATE_VSPACE56(fd fd_nvidia0, cmd const[0xc0384627], arg ptr[i
 # 0x2b
 ioctl$NVRM_IOCTL_CREATE(fd fd_nvidiactl, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_t])
 ioctl$NVRM_IOCTL_CREATE_2(fd fd_nvidia0, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_t])
+
+# more ioctls from nvrm_ioctl.h
+
+# nvidia0 / nvidiactl
+
+ioctl$NVRM_IOCTL_CREATE_CTX(fd fd_nvidiactl, cmd const[0xc00c4622], arg ptr[inout, nvrm_ioctl_create_ctx_t])
+ioctl$NVRM_IOCTL_CREATE_DEV_OBJ(fd fd_nvidiactl, cmd const[0xc0204623], arg ptr[inout, nvrm_ioctl_create_dev_obj])
+ioctl$NVRM_IOCTL_CREATE_SIMPLE(fd fd_nvidiactl, cmd const[0xc0144628], arg ptr[inout, nvrm_ioctl_create_simple])
+ioctl$NVRM_IOCTL_CREATE_DRV_OBJ(fd fd_nvidiactl, cmd const[0xc014462d], arg ptr[inout, nvrm_ioctl_create_drv_obj])
+ioctl$NVRM_IOCTL_GET_PARAM(fd fd_nvidiactl, cmd const[0xc0144632], arg ptr[inout, nvrm_ioctl_get_param])
+ioctl$NVRM_IOCTL_QUERY(fd fd_nvidiactl, cmd const[0xc0204637], arg ptr[inout, nvrm_ioctl_query])
+ioctl$NVRM_IOCTL_UNK38(fd fd_nvidiactl, cmd const[0xc0204638], arg ptr[inout, nvrm_ioctl_unk38_t])
+ioctl$NVRM_IOCTL_DISP_UNK48(fd fd_nvidiactl, cmd const[0xc0104648], arg ptr[inout, nvrm_ioctl_disp_unk48])
+ioctl$NVRM_IOCTL_CONFIG(fd fd_nvidiactl, cmd const[0xc048464d], arg ptr[inout, nvrm_ioctl_config])
+ioctl$NVRM_IOCTL_UNK52(fd fd_nvidiactl, cmd const[0xc0104652], arg ptr[inout, nvrm_ioctl_unk52])
+ioctl$NVRM_IOCTL_BIND(fd fd_nvidiactl, cmd const[0xc0104659], arg ptr[inout, nvrm_ioctl_bind])
 
 # structures
 
@@ -180,56 +199,262 @@ nv_ioctl_set_numa_status_t {
 	status	int32
 }
 
-# unknown structures, prototypes only respect size
+# structs taken from envytools demmt nvrm_ioctl.h
 
 nvrm_ioctl_call_t {
-	data	array[int8, 0x20]
+	cid	int32
+	handle	int32
+	mthd	int32
+	_pad	int32
+# TODO method ptr struct
+	ptr	int64
+	size	int32
+	status	int32
 }
 
 nvrm_ioctl_destroy_t {
-	data	array[int8, 0x10]
+	cid	int32
+	par	int32
+	handle	int32
+	status	int32
 }
 
 nvrm_ioctl_create_dma56_t {
-	data	array[int8, 0x38]
+	cid	int32
+	_pad1	int32
+	handle	int32
+	cls	int32
+	flags	int32
+	_pad2	int32
+	par	int32
+	_pad3	int32
+	base	int64
+	limit	int64
+	status	int32
+	unk34	int32
 }
 
 nvrm_ioctl_memory3_t {
-	data	array[int8, 0xc0]
+	cid		int32
+	par		int32
+	cls		int32
+	unk0c		int32
+	status		int32
+	unk14		int32
+	vram_total	int64
+	vram_free	int64
+	vspace		int32
+	handle		int32
+	unk30		array[int32, 36]
 }
 
 nvrm_ioctl_vspace_map_t {
-	data	array[int8, 0x38]
+	cid	int32
+	dev	int32
+	vspace	int32
+	handle	int32
+	base	int64
+	size	int64
+	flags	int32
+	_pad1	int32
+	addr	int64
+	status	int32
+	_pad2	int32
+}
+
+nvrm_ioctl_host_map56 {
+	cid		int32
+	subdev		int32
+	handle		int32
+	_pad1		int32
+	foffset		int64
+	length		int64
+	map_id		int64
+	status		int32
+	_pad2		int32
+# TODO fd_nvidia0 used?
+	target_fd	fd_nvidiactl
+	_pad3		int32
 }
 
 nvrm_ioctl_create_unk34_t {
-	data	array[int8, 0x1c]
-}
-
-nvrm_ioctl_unk38_t {
-	data	array[int8, 0x38]
+	cid	int32
+	par	int32
+	handle	int32
+	cid2	int32
+	handle2	int32
+	unk14	int32
+	status	int32
 }
 
 nvrm_ioctl_unk5e_t {
-	data	array[int8, 0x28]
+	cid	int32
+	subdev	int32
+	handle	int32
+	_pad1	int32
+	foffset	int64
+# TODO "to just-mmapped thing"
+	ptr	int64
+	status	int32
+	_pad2	int32
 }
 
 nvrm_ioctl_vspace_unmap_t {
-	data	array[int8, 0x28]
+	cid	int32
+	dev	int32
+	vspace	int32
+	handle	int32
+	unk10	int64
+	addr	int64
+	status	int32
+	_pad	int32
 }
 
 nvrm_ioctl_host_unmap_t {
-	data	array[int8, 0x20]
+	cid	int32
+	subdev	int32
+	handle	int32
+	_pad1	int32
+	foffset	int64
+	status	int32
+	_pad2	int32
 }
 
 nvrm_ioctl_sched_fifo_t {
-	data	array[int8, 0x38]
+	cid	int32
+	dev	int32
+	handle	int32
+	cnt	int32
+	ptr1	int64
+	ptr2	int64
+	ptr3	int64
+	unk28	int32
+	unk2c	int32
+	status	int32
+	_pad	int32
 }
 
 nvrm_ioctl_create_vspace56_t {
-	data	array[int8, 0x38]
+	cid		int32
+	par		int32
+	handle		int32
+	cls		int32
+	flags		int32
+	_pad1		int32
+	map_id		int64
+	limit		int64
+	status		int32
+	_pad2		int32
+# TODO fd_nvidia0 used?
+	target_fd	fd_nvidiactl
+	_pad3		int32
 }
 
 nvrm_ioctl_create_t {
-	data	array[int8, 0x20]
+	cid	int32
+	par	int32
+	handle	int32
+	cls	int32
+	ptr	ptr64[in, int32]
+	status	int32
+	_pad	int32
+}
+
+# more structs of unseed ioctls from nvrm_ioctl.h
+
+nvrm_ioctl_create_ctx_t {
+	handle	int32
+	unk04	int32
+	unk08	int32
+}
+
+nvrm_ioctl_create_dev_obj {
+	cid	int32
+	handle	int32
+	unk08	int32
+	unk0c	int32
+# ptr to what? int32?
+	ptr	int32
+	unk14	int32
+	unk18	int32
+	unk1c	int32
+}
+
+nvrm_ioctl_create_simple {
+	cid	int32
+	par	int32
+	handle	int32
+	cls	int32
+	status	int32
+}
+
+nvrm_ioctl_create_drv_obj {
+	cid	int32
+	par	int32
+	handle	int32
+	cls	int32
+	status	int32
+}
+
+nvrm_ioctl_get_param {
+	cid	int32
+	handle	int32
+	key	int32
+	value	int32
+	status	int32
+}
+
+nvrm_ioctl_query {
+	cid	int32
+	handle	int32
+	query	int32
+	size	int32
+	ptr	int64
+	status	int32
+	_pad	int32
+}
+
+nvrm_ioctl_unk38_t {
+	cid	int32
+	handle	int32
+	unk08	int32
+	size	int32
+# TODO pointer to what struct
+	ptr	int64
+	status	int32
+	_pad	int32
+}
+
+nvrm_ioctl_disp_unk48 {
+	cid	int32
+	handle	int32
+	unk08	int32
+	_pad	int32
+}
+
+nvrm_ioctl_config {
+	cid	int32
+	handle	int32
+	unk08	int64
+	unk10	int64
+	slen	int64
+	sptr	int64
+	unk28	int64
+	unk30	int64
+	unk38	int64
+	status	int32
+	_pad	int32
+}
+
+nvrm_ioctl_unk52 {
+	ptr	int64
+	unk08	int32
+	status	int32
+}
+
+nvrm_ioctl_bind {
+	cid	int32
+	target	int32
+	handle	int32
+	status	int32
 }
