@@ -165,7 +165,7 @@ nv_ioctl_alloc_os_event_t {
 }
 
 NvHandle {
-	val	int32
+	val	flags[handle, int32]
 }
 
 nv_ioctl_free_os_event_t {
@@ -203,10 +203,9 @@ nv_ioctl_set_numa_status_t {
 }
 
 # structs taken from envytools demmt nvrm_ioctl.h
-
 nvrm_ioctl_call_t {
 	cid	cid
-	handle	int32
+	handle	NvHandle
 	mthd	int32
 	_pad	int32
 # TODO method ptr struct
@@ -217,19 +216,19 @@ nvrm_ioctl_call_t {
 
 nvrm_ioctl_destroy_t {
 	cid	cid
-	par	int32
-	handle	int32
+	par	NvHandle
+	handle	NvHandle
 	status	int32
 }
 
 nvrm_ioctl_create_dma56_t {
 	cid	cid
 	_pad1	int32
-	handle	int32
+	handle	NvHandle
 	cls	int32
 	flags	int32
 	_pad2	int32
-	par	int32
+	par	NvHandle
 	_pad3	int32
 	base	int64
 	limit	int64
@@ -239,7 +238,7 @@ nvrm_ioctl_create_dma56_t {
 
 nvrm_ioctl_memory3_t {
 	cid		cid
-	par		int32
+	par		NvHandle
 	cls		int32
 	unk0c		int32
 	status		int32
@@ -247,15 +246,15 @@ nvrm_ioctl_memory3_t {
 	vram_total	int64
 	vram_free	int64
 	vspace		int32
-	handle		int32
+	handle		NvHandle
 	unk30		array[int32, 36]
 }
 
 nvrm_ioctl_vspace_map_t {
 	cid	cid
-	dev	int32
+	dev	NvHandle
 	vspace	int32
-	handle	int32
+	handle	NvHandle
 	base	int64
 	size	int64
 	flags	int32
@@ -267,8 +266,8 @@ nvrm_ioctl_vspace_map_t {
 
 nvrm_ioctl_host_map56 {
 	cid		cid
-	subdev		int32
-	handle		int32
+	subdev		NvHandle
+	handle		NvHandle
 	_pad1		int32
 	foffset		int64
 	length		int64
@@ -282,18 +281,18 @@ nvrm_ioctl_host_map56 {
 
 nvrm_ioctl_create_unk34_t {
 	cid	cid
-	par	int32
-	handle	int32
+	par	NvHandle
+	handle	NvHandle
 	cid2	int32
-	handle2	int32
+	handle2	NvHandle
 	unk14	int32
 	status	int32
 }
 
 nvrm_ioctl_unk5e_t {
 	cid	cid
-	subdev	int32
-	handle	int32
+	subdev	NvHandle
+	handle	NvHandle
 	_pad1	int32
 	foffset	int64
 # TODO "to just-mmapped thing"
@@ -304,9 +303,9 @@ nvrm_ioctl_unk5e_t {
 
 nvrm_ioctl_vspace_unmap_t {
 	cid	cid
-	dev	int32
+	dev	NvHandle
 	vspace	int32
-	handle	int32
+	handle	NvHandle
 	unk10	int64
 	addr	int64
 	status	int32
@@ -315,8 +314,8 @@ nvrm_ioctl_vspace_unmap_t {
 
 nvrm_ioctl_host_unmap_t {
 	cid	cid
-	subdev	int32
-	handle	int32
+	subdev	NvHandle
+	handle	NvHandle
 	_pad1	int32
 	foffset	int64
 	status	int32
@@ -325,8 +324,8 @@ nvrm_ioctl_host_unmap_t {
 
 nvrm_ioctl_sched_fifo_t {
 	cid	cid
-	dev	int32
-	handle	int32
+	dev	NvHandle
+	handle	NvHandle
 	cnt	int32
 	ptr1	int64
 	ptr2	int64
@@ -339,8 +338,8 @@ nvrm_ioctl_sched_fifo_t {
 
 nvrm_ioctl_create_vspace56_t {
 	cid		cid
-	par		int32
-	handle		int32
+	par		NvHandle
+	handle		NvHandle
 	cls		int32
 	flags		int32
 	_pad1		int32
@@ -355,8 +354,8 @@ nvrm_ioctl_create_vspace56_t {
 
 nvrm_ioctl_create_t {
 	cid	cid
-	par	int32
-	handle	int32
+	par	NvHandle
+	handle	NvHandle
 	cls	int32
 	ptr	ptr64[in, int32]
 	status	int32
@@ -376,14 +375,14 @@ nvrm_ioctl_create_context {
 # more structs of unseed ioctls from nvrm_ioctl.h
 
 nvrm_ioctl_create_ctx_t {
-	handle	int32
+	handle	NvHandle
 	unk04	int32
 	unk08	int32
 }
 
 nvrm_ioctl_create_dev_obj {
 	cid	cid
-	handle	int32
+	handle	NvHandle
 	unk08	int32
 	unk0c	int32
 # ptr to what? int32?
@@ -395,23 +394,23 @@ nvrm_ioctl_create_dev_obj {
 
 nvrm_ioctl_create_simple {
 	cid	cid
-	par	int32
-	handle	int32
+	par	NvHandle
+	handle	NvHandle
 	cls	int32
 	status	int32
 }
 
 nvrm_ioctl_create_drv_obj {
 	cid	cid
-	par	int32
-	handle	int32
+	par	NvHandle
+	handle	NvHandle
 	cls	int32
 	status	int32
 }
 
 nvrm_ioctl_get_param {
 	cid	cid
-	handle	int32
+	handle	NvHandle
 	key	int32
 	value	int32
 	status	int32
@@ -419,7 +418,7 @@ nvrm_ioctl_get_param {
 
 nvrm_ioctl_query {
 	cid	cid
-	handle	int32
+	handle	NvHandle
 	query	int32
 	size	int32
 	ptr	int64
@@ -429,7 +428,7 @@ nvrm_ioctl_query {
 
 nvrm_ioctl_unk38_t {
 	cid	cid
-	handle	int32
+	handle	NvHandle
 	unk08	int32
 	size	int32
 # TODO pointer to what struct
@@ -440,14 +439,14 @@ nvrm_ioctl_unk38_t {
 
 nvrm_ioctl_disp_unk48 {
 	cid	cid
-	handle	int32
+	handle	NvHandle
 	unk08	int32
 	_pad	int32
 }
 
 nvrm_ioctl_config {
 	cid	cid
-	handle	int32
+	handle	NvHandle
 	unk08	int64
 	unk10	int64
 	slen	int64
@@ -468,6 +467,8 @@ nvrm_ioctl_unk52 {
 nvrm_ioctl_bind {
 	cid	cid
 	target	int32
-	handle	int32
+	handle	NvHandle
 	status	int32
 }
+
+handle = 0xbeef0000, 0xbeef0001, 0xbeef0002, 0xbeef0003, 0xbeef0004, 0xbeef0005, 0xbeef0006, 0xbeef0007, 0xbeef0008, 0xbeef0009, 0xbeef0010, 0xcaf00000, 0xcaf00001, 0xcaf00002, 0xcaf00003, 0xcaf00004, 0xcaf00005, 0xcaf00006, 0xcaf00007, 0xcaf00008, 0xcaf00009, 0xcaf00010
