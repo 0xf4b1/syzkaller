@@ -1,0 +1,549 @@
+resource fd_nvidia_uvm[fd]
+resource fd_nvidia_uvm_tools[fd]
+
+openat$nvidia_uvm(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia-uvm"]], flags flags[open_flags], mode const[0]) fd_nvidia_uvm
+openat$nvidia_uvm_tools(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia-uvm-tools"]], flags flags[open_flags], mode const[0]) fd_nvidia_uvm_tools
+
+mmap$nvidia_uvm(addr vma, len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidia_uvm, offset const[0])
+mmap$nvidia_uvm_tools(addr vma, len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidia_uvm_tools, offset const[0])
+
+ioctl$UVM_RESERVE_VA(fd fd_nvidia_uvm, cmd const[UVM_RESERVE_VA], arg ptr[inout, UVM_RESERVE_VA_PARAMS])
+ioctl$UVM_RELEASE_VA(fd fd_nvidia_uvm, cmd const[UVM_RELEASE_VA], arg ptr[inout, UVM_RELEASE_VA_PARAMS])
+ioctl$UVM_REGION_COMMIT(fd fd_nvidia_uvm, cmd const[UVM_REGION_COMMIT], arg ptr[inout, UVM_REGION_COMMIT_PARAMS])
+ioctl$UVM_REGION_DECOMMIT(fd fd_nvidia_uvm, cmd const[UVM_REGION_DECOMMIT], arg ptr[inout, UVM_REGION_DECOMMIT_PARAMS])
+ioctl$UVM_REGION_SET_STREAM(fd fd_nvidia_uvm, cmd const[UVM_REGION_SET_STREAM], arg ptr[inout, UVM_REGION_SET_STREAM_PARAMS])
+ioctl$UVM_SET_STREAM_RUNNING(fd fd_nvidia_uvm, cmd const[UVM_SET_STREAM_RUNNING], arg ptr[inout, UVM_SET_STREAM_RUNNING_PARAMS])
+ioctl$UVM_SET_STREAM_STOPPED(fd fd_nvidia_uvm, cmd const[UVM_SET_STREAM_STOPPED], arg ptr[inout, UVM_SET_STREAM_STOPPED_PARAMS])
+ioctl$UVM_RUN_TEST(fd fd_nvidia_uvm, cmd const[UVM_RUN_TEST], arg ptr[inout, UVM_RUN_TEST_PARAMS])
+ioctl$UVM_ADD_SESSION(fd fd_nvidia_uvm, cmd const[UVM_ADD_SESSION], arg ptr[inout, UVM_ADD_SESSION_PARAMS])
+ioctl$UVM_REMOVE_SESSION(fd fd_nvidia_uvm, cmd const[UVM_REMOVE_SESSION], arg ptr[inout, UVM_REMOVE_SESSION_PARAMS])
+ioctl$UVM_ENABLE_COUNTERS(fd fd_nvidia_uvm, cmd const[UVM_ENABLE_COUNTERS], arg ptr[inout, UVM_ENABLE_COUNTERS_PARAMS])
+ioctl$UVM_MAP_COUNTER(fd fd_nvidia_uvm, cmd const[UVM_MAP_COUNTER], arg ptr[inout, UVM_MAP_COUNTER_PARAMS])
+ioctl$UVM_CREATE_EVENT_QUEUE(fd fd_nvidia_uvm, cmd const[UVM_CREATE_EVENT_QUEUE], arg ptr[inout, UVM_CREATE_EVENT_QUEUE_PARAMS])
+ioctl$UVM_REMOVE_EVENT_QUEUE(fd fd_nvidia_uvm, cmd const[UVM_REMOVE_EVENT_QUEUE], arg ptr[inout, UVM_REMOVE_EVENT_QUEUE_PARAMS])
+ioctl$UVM_MAP_EVENT_QUEUE(fd fd_nvidia_uvm, cmd const[UVM_MAP_EVENT_QUEUE], arg ptr[inout, UVM_MAP_EVENT_QUEUE_PARAMS])
+ioctl$UVM_EVENT_CTRL(fd fd_nvidia_uvm, cmd const[UVM_EVENT_CTRL], arg ptr[inout, UVM_EVENT_CTRL_PARAMS])
+ioctl$UVM_REGISTER_MPS_SERVER(fd fd_nvidia_uvm, cmd const[UVM_REGISTER_MPS_SERVER], arg ptr[inout, UVM_REGISTER_MPS_SERVER_PARAMS])
+ioctl$UVM_REGISTER_MPS_CLIENT(fd fd_nvidia_uvm, cmd const[UVM_REGISTER_MPS_CLIENT], arg ptr[inout, UVM_REGISTER_MPS_CLIENT_PARAMS])
+ioctl$UVM_GET_GPU_UUID_TABLE(fd fd_nvidia_uvm, cmd const[UVM_GET_GPU_UUID_TABLE], arg ptr[out, UVM_GET_GPU_UUID_TABLE_PARAMS])
+ioctl$UVM_CREATE_RANGE_GROUP(fd fd_nvidia_uvm, cmd const[UVM_CREATE_RANGE_GROUP], arg ptr[out, UVM_CREATE_RANGE_GROUP_PARAMS])
+ioctl$UVM_DESTROY_RANGE_GROUP(fd fd_nvidia_uvm, cmd const[UVM_DESTROY_RANGE_GROUP], arg ptr[inout, UVM_DESTROY_RANGE_GROUP_PARAMS])
+ioctl$UVM_REGISTER_GPU_VASPACE(fd fd_nvidia_uvm, cmd const[UVM_REGISTER_GPU_VASPACE], arg ptr[inout, UVM_REGISTER_GPU_VASPACE_PARAMS])
+ioctl$UVM_UNREGISTER_GPU_VASPACE(fd fd_nvidia_uvm, cmd const[UVM_UNREGISTER_GPU_VASPACE], arg ptr[inout, UVM_UNREGISTER_GPU_VASPACE_PARAMS])
+ioctl$UVM_REGISTER_CHANNEL(fd fd_nvidia_uvm, cmd const[UVM_REGISTER_CHANNEL], arg ptr[inout, UVM_REGISTER_CHANNEL_PARAMS])
+ioctl$UVM_UNREGISTER_CHANNEL(fd fd_nvidia_uvm, cmd const[UVM_UNREGISTER_CHANNEL], arg ptr[inout, UVM_UNREGISTER_CHANNEL_PARAMS])
+ioctl$UVM_ENABLE_PEER_ACCESS(fd fd_nvidia_uvm, cmd const[UVM_ENABLE_PEER_ACCESS], arg ptr[inout, UVM_ENABLE_PEER_ACCESS_PARAMS])
+ioctl$UVM_DISABLE_PEER_ACCESS(fd fd_nvidia_uvm, cmd const[UVM_DISABLE_PEER_ACCESS], arg ptr[inout, UVM_DISABLE_PEER_ACCESS_PARAMS])
+ioctl$UVM_SET_RANGE_GROUP(fd fd_nvidia_uvm, cmd const[UVM_SET_RANGE_GROUP], arg ptr[inout, UVM_SET_RANGE_GROUP_PARAMS])
+ioctl$UVM_MAP_EXTERNAL_ALLOCATION(fd fd_nvidia_uvm, cmd const[UVM_MAP_EXTERNAL_ALLOCATION], arg ptr[inout, UVM_MAP_EXTERNAL_ALLOCATION_PARAMS])
+ioctl$UVM_FREE(fd fd_nvidia_uvm, cmd const[UVM_FREE], arg ptr[inout, UVM_FREE_PARAMS])
+ioctl$UVM_MEM_MAP(fd fd_nvidia_uvm, cmd const[UVM_MEM_MAP], arg ptr[inout, UVM_MEM_MAP_PARAMS])
+ioctl$UVM_DEBUG_ACCESS_MEMORY(fd fd_nvidia_uvm, cmd const[UVM_DEBUG_ACCESS_MEMORY], arg ptr[inout, UVM_DEBUG_ACCESS_MEMORY_PARAMS])
+ioctl$UVM_REGISTER_GPU(fd fd_nvidia_uvm, cmd const[UVM_REGISTER_GPU], arg ptr[inout, UVM_REGISTER_GPU_PARAMS])
+ioctl$UVM_UNREGISTER_GPU(fd fd_nvidia_uvm, cmd const[UVM_UNREGISTER_GPU], arg ptr[inout, UVM_UNREGISTER_GPU_PARAMS])
+ioctl$UVM_PAGEABLE_MEM_ACCESS(fd fd_nvidia_uvm, cmd const[UVM_PAGEABLE_MEM_ACCESS], arg ptr[out, UVM_PAGEABLE_MEM_ACCESS_PARAMS])
+ioctl$UVM_PREVENT_MIGRATION_RANGE_GROUPS(fd fd_nvidia_uvm, cmd const[UVM_PREVENT_MIGRATION_RANGE_GROUPS], arg ptr[inout, UVM_PREVENT_MIGRATION_RANGE_GROUPS_PARAMS])
+ioctl$UVM_ALLOW_MIGRATION_RANGE_GROUPS(fd fd_nvidia_uvm, cmd const[UVM_ALLOW_MIGRATION_RANGE_GROUPS], arg ptr[inout, UVM_ALLOW_MIGRATION_RANGE_GROUPS_PARAMS])
+ioctl$UVM_SET_PREFERRED_LOCATION(fd fd_nvidia_uvm, cmd const[UVM_SET_PREFERRED_LOCATION], arg ptr[inout, UVM_SET_PREFERRED_LOCATION_PARAMS])
+ioctl$UVM_UNSET_PREFERRED_LOCATION(fd fd_nvidia_uvm, cmd const[UVM_UNSET_PREFERRED_LOCATION], arg ptr[inout, UVM_UNSET_PREFERRED_LOCATION_PARAMS])
+ioctl$UVM_ENABLE_READ_DUPLICATION(fd fd_nvidia_uvm, cmd const[UVM_ENABLE_READ_DUPLICATION], arg ptr[inout, UVM_ENABLE_READ_DUPLICATION_PARAMS])
+ioctl$UVM_DISABLE_READ_DUPLICATION(fd fd_nvidia_uvm, cmd const[UVM_DISABLE_READ_DUPLICATION], arg ptr[inout, UVM_DISABLE_READ_DUPLICATION_PARAMS])
+ioctl$UVM_SET_ACCESSED_BY(fd fd_nvidia_uvm, cmd const[UVM_SET_ACCESSED_BY], arg ptr[inout, UVM_SET_ACCESSED_BY_PARAMS])
+ioctl$UVM_UNSET_ACCESSED_BY(fd fd_nvidia_uvm, cmd const[UVM_UNSET_ACCESSED_BY], arg ptr[inout, UVM_UNSET_ACCESSED_BY_PARAMS])
+ioctl$UVM_MIGRATE(fd fd_nvidia_uvm, cmd const[UVM_MIGRATE], arg ptr[inout, UVM_MIGRATE_PARAMS])
+ioctl$UVM_MIGRATE_RANGE_GROUP(fd fd_nvidia_uvm, cmd const[UVM_MIGRATE_RANGE_GROUP], arg ptr[inout, UVM_MIGRATE_RANGE_GROUP_PARAMS])
+ioctl$UVM_ENABLE_SYSTEM_WIDE_ATOMICS(fd fd_nvidia_uvm, cmd const[UVM_ENABLE_SYSTEM_WIDE_ATOMICS], arg ptr[inout, UVM_ENABLE_SYSTEM_WIDE_ATOMICS_PARAMS])
+ioctl$UVM_DISABLE_SYSTEM_WIDE_ATOMICS(fd fd_nvidia_uvm, cmd const[UVM_DISABLE_SYSTEM_WIDE_ATOMICS], arg ptr[inout, UVM_DISABLE_SYSTEM_WIDE_ATOMICS_PARAMS])
+ioctl$UVM_TOOLS_INIT_EVENT_TRACKER(fd fd_nvidia_uvm_tools, cmd const[UVM_TOOLS_INIT_EVENT_TRACKER], arg ptr[inout, UVM_TOOLS_INIT_EVENT_TRACKER_PARAMS])
+ioctl$UVM_TOOLS_SET_NOTIFICATION_THRESHOLD(fd fd_nvidia_uvm_tools, cmd const[UVM_TOOLS_SET_NOTIFICATION_THRESHOLD], arg ptr[inout, UVM_TOOLS_SET_NOTIFICATION_THRESHOLD_PARAMS])
+ioctl$UVM_TOOLS_EVENT_QUEUE_ENABLE_EVENTS(fd fd_nvidia_uvm_tools, cmd const[UVM_TOOLS_EVENT_QUEUE_ENABLE_EVENTS], arg ptr[inout, UVM_TOOLS_EVENT_QUEUE_ENABLE_EVENTS_PARAMS])
+ioctl$UVM_TOOLS_EVENT_QUEUE_DISABLE_EVENTS(fd fd_nvidia_uvm_tools, cmd const[UVM_TOOLS_EVENT_QUEUE_DISABLE_EVENTS], arg ptr[inout, UVM_TOOLS_EVENT_QUEUE_DISABLE_EVENTS_PARAMS])
+ioctl$UVM_TOOLS_ENABLE_COUNTERS(fd fd_nvidia_uvm_tools, cmd const[UVM_TOOLS_ENABLE_COUNTERS], arg ptr[inout, UVM_TOOLS_ENABLE_COUNTERS_PARAMS])
+ioctl$UVM_TOOLS_DISABLE_COUNTERS(fd fd_nvidia_uvm_tools, cmd const[UVM_TOOLS_DISABLE_COUNTERS], arg ptr[inout, UVM_TOOLS_DISABLE_COUNTERS_PARAMS])
+ioctl$UVM_TOOLS_READ_PROCESS_MEMORY(fd fd_nvidia_uvm_tools, cmd const[UVM_TOOLS_READ_PROCESS_MEMORY], arg ptr[inout, UVM_TOOLS_READ_PROCESS_MEMORY_PARAMS])
+ioctl$UVM_TOOLS_WRITE_PROCESS_MEMORY(fd fd_nvidia_uvm_tools, cmd const[UVM_TOOLS_WRITE_PROCESS_MEMORY], arg ptr[inout, UVM_TOOLS_WRITE_PROCESS_MEMORY_PARAMS])
+ioctl$UVM_TOOLS_GET_PROCESSOR_UUID_TABLE(fd fd_nvidia_uvm_tools, cmd const[UVM_TOOLS_GET_PROCESSOR_UUID_TABLE], arg ptr[inout, UVM_TOOLS_GET_PROCESSOR_UUID_TABLE_PARAMS])
+ioctl$UVM_MAP_DYNAMIC_PARALLELISM_REGION(fd fd_nvidia_uvm, cmd const[UVM_MAP_DYNAMIC_PARALLELISM_REGION], arg ptr[inout, UVM_MAP_DYNAMIC_PARALLELISM_REGION_PARAMS])
+ioctl$UVM_UNMAP_EXTERNAL_ALLOCATION(fd fd_nvidia_uvm, cmd const[UVM_UNMAP_EXTERNAL_ALLOCATION], arg ptr[inout, UVM_UNMAP_EXTERNAL_ALLOCATION_PARAMS])
+ioctl$UVM_TOOLS_FLUSH_EVENTS(fd fd_nvidia_uvm_tools, cmd const[UVM_TOOLS_FLUSH_EVENTS], arg ptr[out, UVM_TOOLS_FLUSH_EVENTS_PARAMS])
+ioctl$UVM_ALLOC_SEMAPHORE_POOL(fd fd_nvidia_uvm, cmd const[UVM_ALLOC_SEMAPHORE_POOL], arg ptr[inout, UVM_ALLOC_SEMAPHORE_POOL_PARAMS])
+ioctl$UVM_CLEAN_UP_ZOMBIE_RESOURCES(fd fd_nvidia_uvm, cmd const[UVM_CLEAN_UP_ZOMBIE_RESOURCES], arg ptr[out, UVM_CLEAN_UP_ZOMBIE_RESOURCES_PARAMS])
+ioctl$UVM_PAGEABLE_MEM_ACCESS_ON_GPU(fd fd_nvidia_uvm, cmd const[UVM_PAGEABLE_MEM_ACCESS_ON_GPU], arg ptr[inout, UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS])
+ioctl$UVM_POPULATE_PAGEABLE(fd fd_nvidia_uvm, cmd const[UVM_POPULATE_PAGEABLE], arg ptr[inout, UVM_POPULATE_PAGEABLE_PARAMS])
+ioctl$UVM_VALIDATE_VA_RANGE(fd fd_nvidia_uvm, cmd const[UVM_VALIDATE_VA_RANGE], arg ptr[inout, UVM_VALIDATE_VA_RANGE_PARAMS])
+ioctl$UVM_IS_8_SUPPORTED(fd fd_nvidia_uvm, cmd const[UVM_IS_8_SUPPORTED], arg ptr[inout, UVM_IS_8_SUPPORTED_PARAMS])
+
+define NV_UUID_LEN	16
+
+type NV_STATUS int32
+type UvmStream int64
+type NvProcessorUuid NvUuid
+
+NvUuid {
+	uuid	array[int8, NV_UUID_LEN]
+}
+
+UvmGpuMappingAttributes {
+	gpuUuid		NvProcessorUuid
+	gpuMappingType	int32
+	gpuCachingType	int32
+	gpuFormatType	int32
+	gpuElementBits	int32
+}
+
+UVM_RESERVE_VA_PARAMS {
+	requestedBase	int64
+	length		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_RELEASE_VA_PARAMS {
+	requestedBase	int64
+	length		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_REGION_COMMIT_PARAMS {
+	requestedBase	int64
+	length		int64
+	streamId	UvmStream
+	gpuUuid		NvUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_REGION_DECOMMIT_PARAMS {
+	requestedBase	int64
+	length		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_REGION_SET_STREAM_PARAMS {
+	requestedBase	int64
+	length		int64
+	newStreamId	UvmStream
+	gpuUuid		NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_SET_STREAM_RUNNING_PARAMS {
+	streamId	UvmStream
+	rmStatus	NV_STATUS
+}
+
+define UVM_MAX_STREAMS_PER_IOCTL_CALL	32
+
+UVM_SET_STREAM_STOPPED_PARAMS {
+	streamIdArray	array[UvmStream, UVM_MAX_STREAMS_PER_IOCTL_CALL]
+	nStreams	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_RUN_TEST_PARAMS {
+	gpuUuid		NvProcessorUuid
+	test		int32
+# struct multiGpu
+	peerGpuUuid	NvProcessorUuid
+	peerId		int32
+	rmStatus	NV_STATUS
+}
+
+UVM_ADD_SESSION_PARAMS {
+	pidTarget		int32
+# TODO ptr64 to something
+	countersBaseAddress	int64
+	sessionIndex		int32
+	rmStatus		NV_STATUS
+}
+
+UVM_REMOVE_SESSION_PARAMS {
+	sessionIndex	int32
+	rmStatus	NV_STATUS
+}
+
+UvmCounterConfig {
+	scope	int32
+	name	int32
+	gpuid	NvProcessorUuid
+	state	int32
+}
+
+define UVM_MAX_COUNTERS_PER_IOCTL_CALL	32
+
+UVM_ENABLE_COUNTERS_PARAMS {
+	sessionIndex	int32
+	config		array[UvmCounterConfig, UVM_MAX_COUNTERS_PER_IOCTL_CALL]
+	count		int32
+	rmStatus	NV_STATUS
+}
+
+UVM_MAP_COUNTER_PARAMS {
+	sessionIndex	int32
+	scope		int32
+	counterName	int32
+	gpuUuid		NvProcessorUuid
+# TODO ptr64 to something
+	addr		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_CREATE_EVENT_QUEUE_PARAMS {
+	sessionIndex		int32
+	eventQueueIndex		int32
+	queueSize		int64
+	notificationCount	int64
+	timeStampType		int32
+	rmStatus		NV_STATUS
+}
+
+UVM_REMOVE_EVENT_QUEUE_PARAMS {
+	sessionIndex	int32
+	eventQueueIndex	int32
+	rmStatus	NV_STATUS
+}
+
+UVM_MAP_EVENT_QUEUE_PARAMS {
+	sessionIndex	int32
+	eventQueueIndex	int32
+# TODO pointers to something
+	userRODataAddr	int64
+	userRWDataAddr	int64
+	readIndexAddr	int64
+	writeIndexAddr	int64
+	queueBufferAddr	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_EVENT_CTRL_PARAMS {
+	sessionIndex	int32
+	eventQueueIndex	int32
+	eventType	int32
+	enable		int32
+	rmStatus	NV_STATUS
+}
+
+UVM_REGISTER_MPS_SERVER_PARAMS {
+	gpuUuidArray	array[NvProcessorUuid, 32]
+	numGpus		int32
+	serverId	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_REGISTER_MPS_CLIENT_PARAMS {
+	serverId	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_GET_GPU_UUID_TABLE_PARAMS {
+	gpuUuidArray	array[NvProcessorUuid, 32]
+	validCount	int32
+	rmStatus	NV_STATUS
+}
+
+UVM_CREATE_RANGE_GROUP_PARAMS {
+	rangeGroupId	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_DESTROY_RANGE_GROUP_PARAMS {
+	rangeGroupId	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_REGISTER_GPU_VASPACE_PARAMS {
+	gpuUuid		NvProcessorUuid
+	rmCtrlFd	int32
+	hClient		cid
+	hVaSpace	NvHandle
+	rmStatus	NV_STATUS
+}
+
+UVM_UNREGISTER_GPU_VASPACE_PARAMS {
+	gpuUuid		NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_REGISTER_CHANNEL_PARAMS {
+	gpuUuid		NvProcessorUuid
+	rmCtrlFd	int32
+	hClient		cid
+	hChannel	NvHandle
+	base		int64
+	length		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_UNREGISTER_CHANNEL_PARAMS {
+	gpuUuid		NvProcessorUuid
+	hClient		cid
+	hChannel	NvHandle
+	rmStatus	NV_STATUS
+}
+
+UVM_ENABLE_PEER_ACCESS_PARAMS {
+	gpuUuidA	NvProcessorUuid
+	gpuUuidB	NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_DISABLE_PEER_ACCESS_PARAMS {
+	gpuUuidA	NvProcessorUuid
+	gpuUuidB	NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_SET_RANGE_GROUP_PARAMS {
+	rangeGroupId	int64
+	requestedBase	int64
+	length		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_MAP_EXTERNAL_ALLOCATION_PARAMS {
+	base			int64
+	length			int64
+	offset			int64
+	perGpuAttributes	array[UvmGpuMappingAttributes, UVM_MAX_GPUS]
+	gpuAttributesCount	int64
+	rmCtrlFd		int32
+	hClient			cid
+	hMemory			int32
+	hClientFromRm		int32
+	hMemoryFromRm		int32
+	rmStatus		NV_STATUS
+}
+
+UVM_FREE_PARAMS {
+	base		int64
+	length		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_MEM_MAP_PARAMS {
+# TODO ptr64 to something
+	regionBase	int64
+	regionLength	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_DEBUG_ACCESS_MEMORY_PARAMS {
+	sessionIndex	int32
+	baseAddress	int64
+	sizeInBytes	int64
+	accessType	int32
+	buffer		int64
+	isBitmaskSet	bool8
+	bitmask		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_REGISTER_GPU_PARAMS {
+	gpu_uuid	NvProcessorUuid
+	numaEnabled	bool8
+	numaNodeId	int32
+	rmCtrlFd	int32
+	hClient		cid
+	hObject		NvHandle
+	rmStatus	NV_STATUS
+}
+
+UVM_UNREGISTER_GPU_PARAMS {
+	gpu_uuid	NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_PAGEABLE_MEM_ACCESS_PARAMS {
+	pageableMemAccess	bool8
+	rmStatus		NV_STATUS
+}
+
+define UVM_MAX_RANGE_GROUPS_PER_IOCTL_CALL	32
+
+UVM_PREVENT_MIGRATION_RANGE_GROUPS_PARAMS {
+	rangeGroupIds	array[int64, UVM_MAX_RANGE_GROUPS_PER_IOCTL_CALL]
+	numGroupIds	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_ALLOW_MIGRATION_RANGE_GROUPS_PARAMS {
+	rangeGroupIds	array[int64, UVM_MAX_RANGE_GROUPS_PER_IOCTL_CALL]
+	numGroupIds	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_SET_PREFERRED_LOCATION_PARAMS {
+	requestedBase		int64
+	length			int64
+	preferredLocation	NvProcessorUuid
+	rmStatus		NV_STATUS
+}
+
+UVM_UNSET_PREFERRED_LOCATION_PARAMS {
+	requestedBase	int64
+	length		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_ENABLE_READ_DUPLICATION_PARAMS {
+	requestedBase	int64
+	length		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_DISABLE_READ_DUPLICATION_PARAMS {
+	requestedBase	int64
+	length		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_SET_ACCESSED_BY_PARAMS {
+	requestedBase	int64
+	length		int64
+	accessedByUuid	NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_UNSET_ACCESSED_BY_PARAMS {
+	requestedBase	int64
+	length		int64
+	accessedByUuid	NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_MIGRATE_PARAMS {
+	base			int64
+	length			int64
+	destinationUuid		NvProcessorUuid
+	flags			int32
+	semaphoreAddress	int64
+	semaphorePayload	int64
+	cpuNumaNode		int32
+	userSpaceStart		int64
+	userSpaceLength		int64
+	rmStatus		NV_STATUS
+}
+
+UVM_MIGRATE_RANGE_GROUP_PARAMS {
+	rangeGroupId	int64
+	destinationUuid	NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_ENABLE_SYSTEM_WIDE_ATOMICS_PARAMS {
+	gpu_uuid	NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_DISABLE_SYSTEM_WIDE_ATOMICS_PARAMS {
+	gpu_uuid	NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_TOOLS_INIT_EVENT_TRACKER_PARAMS {
+	queueBuffer	int64
+	queueBufferSize	int64
+	controlBuffer	int64
+	processor	NvProcessorUuid
+	allProcessors	int32
+	uvmFd		int32
+	rmStatus	NV_STATUS
+}
+
+UVM_TOOLS_SET_NOTIFICATION_THRESHOLD_PARAMS {
+	notificationThreshold	int32
+	rmStatus		NV_STATUS
+}
+
+UVM_TOOLS_EVENT_QUEUE_ENABLE_EVENTS_PARAMS {
+	eventTypeFlags	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_TOOLS_EVENT_QUEUE_DISABLE_EVENTS_PARAMS {
+	eventTypeFlags	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_TOOLS_ENABLE_COUNTERS_PARAMS {
+	counterTypeFlags	int64
+	rmStatus		NV_STATUS
+}
+
+UVM_TOOLS_DISABLE_COUNTERS_PARAMS {
+	counterTypeFlags	int64
+	rmStatus		NV_STATUS
+}
+
+UVM_TOOLS_READ_PROCESS_MEMORY_PARAMS {
+	buffer		int64
+	size		int64
+	targetVa	int64
+	bytesRead	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_TOOLS_WRITE_PROCESS_MEMORY_PARAMS {
+	buffer		int64
+	size		int64
+	targetVa	int64
+	bytesWritten	int64
+	rmStatus	NV_STATUS
+}
+
+UVM_TOOLS_GET_PROCESSOR_UUID_TABLE_PARAMS {
+	tablePtr	int64
+	count		int32
+	rmStatus	NV_STATUS
+}
+
+UVM_MAP_DYNAMIC_PARALLELISM_REGION_PARAMS {
+	base		int64
+	length		int64
+	gpuUuid		NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_UNMAP_EXTERNAL_ALLOCATION_PARAMS {
+	base		int64
+	gpuUuid		NvProcessorUuid
+	rmStatus	NV_STATUS
+}
+
+UVM_TOOLS_FLUSH_EVENTS_PARAMS {
+	rmStatus	NV_STATUS
+}
+
+UVM_ALLOC_SEMAPHORE_POOL_PARAMS {
+	base			int64
+	length			int64
+	perGpuAttributes	array[UvmGpuMappingAttributes, UVM_MAX_GPUS]
+	gpuAttributesCount	int64
+	rmStatus		NV_STATUS
+}
+
+UVM_CLEAN_UP_ZOMBIE_RESOURCES_PARAMS {
+	rmStatus	NV_STATUS
+}
+
+UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS {
+	gpu_uuid		NvProcessorUuid
+	pageableMemAccess	bool8
+	rmStatus		NV_STATUS
+}
+
+UVM_POPULATE_PAGEABLE_PARAMS {
+	base		int64
+	length		int64
+	flags		int32
+	rmStatus	NV_STATUS
+}
+
+UVM_VALIDATE_VA_RANGE_PARAMS {
+	base		int64
+	length		int64
+	rmStatus	NV_STATUS
+}
+
+UVM_IS_8_SUPPORTED_PARAMS {
+	is8Supported	int32
+	rmStatus	NV_STATUS
+}
