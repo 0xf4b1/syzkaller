@@ -1,0 +1,235 @@
+include <uapi/asm/ioctl.h>
+include <uapi/linux/fcntl.h>
+
+include <nv.h>
+
+resource fd_nvidiactl[fd]
+resource fd_nvidia0[fd]
+
+openat$nvidiactl(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidiactl"]], flags const[O_RDONLY], mode const[0]) fd_nvidiactl
+openat$nvidia0(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia0"]], flags const[O_RDWR], mode const[0]) fd_nvidia0
+
+# known ioctls with definitions from kernel interface
+
+# ioctls initially used before rm_init_adapter
+
+# nvidiactl
+
+ioctl$NV_ESC_CHECK_VERSION_STR(fd fd_nvidiactl, cmd const[NV_ESC_CHECK_VERSION_STR], arg ptr[inout, nv_ioctl_rm_api_version_t])
+ioctl$NV_ESC_SYS_PARAMS(fd fd_nvidiactl, cmd const[NV_ESC_SYS_PARAMS], arg ptr[inout, nv_ioctl_sys_params_t])
+ioctl$NV_ESC_ENV_INFO(fd fd_nvidiactl, cmd const[NV_ESC_ENV_INFO], arg ptr[inout, nv_ioctl_env_info_t])
+ioctl$NV_ESC_CARD_INFO(fd fd_nvidiactl, cmd const[NV_ESC_CARD_INFO], arg ptr[inout, nv_ioctl_card_info_t])
+
+# nvidia0
+
+ioctl$NV_ESC_NUMA_INFO(fd fd_nvidia0, cmd const[NV_ESC_NUMA_INFO], arg ptr[inout, nv_ioctl_numa_info_t])
+
+# more ioctls from kernel interface not observed being used
+
+# nvidiactl
+
+ioctl$NV_ESC_STATUS_CODE(fd fd_nvidiactl, cmd const[NV_ESC_STATUS_CODE], arg ptr[inout, nv_ioctl_status_code_t])
+ioctl$NV_ESC_IOCTL_XFER_CMD(fd fd_nvidiactl, cmd const[NV_ESC_IOCTL_XFER_CMD], arg ptr[inout, nv_ioctl_xfer_t])
+ioctl$NV_ESC_ATTACH_GPUS_TO_FD(fd fd_nvidiactl, cmd const[NV_ESC_ATTACH_GPUS_TO_FD], arg ptr[inout, nv_attach_gpus_to_fd_t])
+
+# nvidia0
+
+ioctl$NV_ESC_ALLOC_OS_EVENT(fd fd_nvidia0, cmd const[NV_ESC_ALLOC_OS_EVENT], arg ptr[inout, nv_ioctl_alloc_os_event_t])
+ioctl$NV_ESC_FREE_OS_EVENT(fd fd_nvidia0, cmd const[NV_ESC_FREE_OS_EVENT], arg ptr[inout, nv_ioctl_free_os_event_t])
+ioctl$NV_ESC_QUERY_DEVICE_INTR(fd fd_nvidia0, cmd const[NV_ESC_QUERY_DEVICE_INTR], arg ptr[inout, nv_ioctl_query_device_intr_t])
+ioctl$NV_ESC_SET_NUMA_STATUS(fd fd_nvidia0, cmd const[NV_ESC_SET_NUMA_STATUS], arg ptr[inout, nv_ioctl_set_numa_status_t])
+
+# unknown ioctls, not defined in kernel interface, descriptions derived from valgrind-mmt
+
+# nvidiactl
+
+# 0x2a
+ioctl$NVRM_IOCTL_CALL(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_t])
+# 0x29
+ioctl$NVRM_IOCTL_DESTROY(fd fd_nvidiactl, cmd const[0xc0104629], arg ptr[inout, nvrm_ioctl_destroy_t])
+# 0x54
+ioctl$NVRM_IOCTL_CREATE_DMA56(fd fd_nvidiactl, cmd const[0xc0384654], arg ptr[inout, nvrm_ioctl_create_dma56_t])
+# 0x4a
+ioctl$NVRM_IOCTL_MEMORY3(fd fd_nvidiactl, cmd const[0xc0c0464a], arg ptr[inout, nvrm_ioctl_memory3_t])
+# 0x57
+ioctl$NVRM_IOCTL_VSPACE_MAP(fd fd_nvidiactl, cmd const[0xc0384657], arg ptr[inout, nvrm_ioctl_vspace_map_t])
+# 0x34
+ioctl$NVRM_IOCTL_CREATE_UNK34(fd fd_nvidiactl, cmd const[0xc01c4634], arg ptr[inout, nvrm_ioctl_create_unk34_t])
+# 0x4e
+ioctl$NVRM_IOCTL_UNK38(fd fd_nvidiactl, cmd const[0xc038464e], arg ptr[inout, nvrm_ioctl_unk38_t])
+# 0x5e
+ioctl$NVRM_IOCTL_UNK5E(fd fd_nvidiactl, cmd const[0xc028465e], arg ptr[inout, nvrm_ioctl_unk5e_t])
+# 0x58
+ioctl$NVRM_IOCTL_VSPACE_UNMAP(fd fd_nvidiactl, cmd const[0xc0284658], arg ptr[inout, nvrm_ioctl_vspace_unmap_t])
+# 0x4f
+ioctl$NVRM_IOCTL_HOST_UNMAP(fd fd_nvidiactl, cmd const[0xc020464f], arg ptr[inout, nvrm_ioctl_host_unmap_t])
+# 0x41
+ioctl$NVRM_IOCTL_SCHED_FIFO(fd fd_nvidiactl, cmd const[0xc0384641], arg ptr[inout, nvrm_ioctl_sched_fifo_t])
+
+# nvidia0
+
+# 0x27
+ioctl$NVRM_IOCTL_CREATE_VSPACE56(fd fd_nvidia0, cmd const[0xc0384627], arg ptr[inout, nvrm_ioctl_create_vspace56_t])
+
+# nvidiactl / nvidia0
+
+# 0x2b
+ioctl$NVRM_IOCTL_CREATE(fd fd_nvidiactl, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_t])
+ioctl$NVRM_IOCTL_CREATE_2(fd fd_nvidia0, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_t])
+
+# structures
+
+# structures from kernel interface
+
+nv_ioctl_rm_api_version_t {
+	cmd		int32
+	reply		int32
+	versionString	array[int8, NV_RM_API_VERSION_STRING_LENGTH]
+}
+
+nv_ioctl_sys_params_t {
+	memblock_size	int64
+}
+
+nv_ioctl_env_info_t {
+	pat_supported	int32
+}
+
+nv_ioctl_card_info_t {
+	flags		int16
+	pci_info	nv_pci_info_t
+	gpu_id		int32
+	interrupt_line	int16
+	reg_address	int64
+	reg_size	int64
+	fb_address	int64
+	fb_size		int64
+	minor_number	int32
+	dev_name	array[int8, 10]
+}
+
+nv_pci_info_t {
+	domain		int32
+	bus		int8
+	slot		int8
+	function	int8
+	vendor_id	int16
+	device_id	int16
+	valid		bool32
+}
+
+nv_ioctl_numa_info_t {
+	nid			int32
+	status			int32
+	memblock_size		int64
+	numa_mem_addr		int64
+	numa_mem_size		int64
+	blacklist_addresses	nv_blacklist_addresses_t
+}
+
+nv_blacklist_addresses_t {
+	addresses	array[int64, NV_IOCTL_NUMA_INFO_MAX_BLACKLIST_ADDRESSES]
+	numEntries	int32
+}
+
+# more ioctls
+
+nv_ioctl_alloc_os_event_t {
+	hClient		NvHandle
+	hDevice		NvHandle
+	hOsEvent	NvHandle
+	fd		int32
+	Status		int32
+}
+
+NvHandle {
+	val	int32
+}
+
+nv_ioctl_free_os_event_t {
+	hClient	NvHandle
+	hDevice	NvHandle
+	fd	int32
+	Status	int32
+}
+
+nv_ioctl_status_code_t {
+	domain	int32
+	bus	int8
+	slot	int8
+	status	int32
+}
+
+nv_ioctl_xfer_t {
+	cmd	int32
+	size	int32
+	ptr	int64
+}
+
+# arbitrary size
+nv_attach_gpus_to_fd_t {
+	gpus	array[int32, 100]
+}
+
+nv_ioctl_query_device_intr_t {
+	intrStatus	int32
+	status		int32
+}
+
+nv_ioctl_set_numa_status_t {
+	status	int32
+}
+
+# unknown structures, prototypes only respect size
+
+nvrm_ioctl_call_t {
+	data	array[int8, 0x20]
+}
+
+nvrm_ioctl_destroy_t {
+	data	array[int8, 0x10]
+}
+
+nvrm_ioctl_create_dma56_t {
+	data	array[int8, 0x38]
+}
+
+nvrm_ioctl_memory3_t {
+	data	array[int8, 0xc0]
+}
+
+nvrm_ioctl_vspace_map_t {
+	data	array[int8, 0x38]
+}
+
+nvrm_ioctl_create_unk34_t {
+	data	array[int8, 0x1c]
+}
+
+nvrm_ioctl_unk38_t {
+	data	array[int8, 0x38]
+}
+
+nvrm_ioctl_unk5e_t {
+	data	array[int8, 0x28]
+}
+
+nvrm_ioctl_vspace_unmap_t {
+	data	array[int8, 0x28]
+}
+
+nvrm_ioctl_host_unmap_t {
+	data	array[int8, 0x20]
+}
+
+nvrm_ioctl_sched_fifo_t {
+	data	array[int8, 0x38]
+}
+
+nvrm_ioctl_create_vspace56_t {
+	data	array[int8, 0x38]
+}
+
+nvrm_ioctl_create_t {
+	data	array[int8, 0x20]
+}
