@@ -8,6 +8,6 @@ ioctl$NVKMS_IOCTL_CMD(fd fd_nvidia_modeset, cmd const[0xc0106d00], arg ptr[inout
 # actual structures unknown, ptr just points to some memory
 NvKmsIoctlParams {
 	cmd	int32
-	size	int32
-	address	ptr64[inout, array[int8, 0xc0]]
+	size	bytesize[address, int32]
+	address	buffer[inout]
 }

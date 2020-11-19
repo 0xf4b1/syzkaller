@@ -182,7 +182,7 @@ UVM_MAP_COUNTER_PARAMS {
 	counterName	int32
 	gpuUuid		NvProcessorUuid
 # TODO ptr64 to something
-	addr		int64
+	addr		buffer[out]
 	rmStatus	NV_STATUS
 }
 
@@ -205,11 +205,11 @@ UVM_MAP_EVENT_QUEUE_PARAMS {
 	sessionIndex	int32
 	eventQueueIndex	int32
 # TODO pointers to something
-	userRODataAddr	int64
-	userRWDataAddr	int64
-	readIndexAddr	int64
-	writeIndexAddr	int64
-	queueBufferAddr	int64
+	userRODataAddr	buffer[in]
+	userRWDataAddr	buffer[in]
+	readIndexAddr	buffer[out]
+	writeIndexAddr	buffer[out]
+	queueBufferAddr	buffer[out]
 	rmStatus	NV_STATUS
 }
 
@@ -251,7 +251,7 @@ UVM_DESTROY_RANGE_GROUP_PARAMS {
 
 UVM_REGISTER_GPU_VASPACE_PARAMS {
 	gpuUuid		NvProcessorUuid
-	rmCtrlFd	int32
+	rmCtrlFd	fd_nvidiactl
 	hClient		cid
 	hVaSpace	NvHandle
 	rmStatus	NV_STATUS
@@ -264,11 +264,11 @@ UVM_UNREGISTER_GPU_VASPACE_PARAMS {
 
 UVM_REGISTER_CHANNEL_PARAMS {
 	gpuUuid		NvProcessorUuid
-	rmCtrlFd	int32
+	rmCtrlFd	fd_nvidiactl
 	hClient		cid
 	hChannel	NvHandle
-	base		int64
-	length		int64
+	base		buffer[inout]
+	length		bytesize[base, int64]
 	rmStatus	NV_STATUS
 }
 
@@ -304,7 +304,7 @@ UVM_MAP_EXTERNAL_ALLOCATION_PARAMS {
 	offset			int64
 	perGpuAttributes	array[UvmGpuMappingAttributes, UVM_MAX_GPUS]
 	gpuAttributesCount	int64
-	rmCtrlFd		int32
+	rmCtrlFd		fd_nvidiactl
 	hClient			cid
 	hMemory			int32
 	hClientFromRm		int32
@@ -320,8 +320,8 @@ UVM_FREE_PARAMS {
 
 UVM_MEM_MAP_PARAMS {
 # TODO ptr64 to something
-	regionBase	int64
-	regionLength	int64
+	regionBase	buffer[inout]
+	regionLength	bytesize[regionBase, int64]
 	rmStatus	NV_STATUS
 }
 
@@ -330,7 +330,7 @@ UVM_DEBUG_ACCESS_MEMORY_PARAMS {
 	baseAddress	int64
 	sizeInBytes	int64
 	accessType	int32
-	buffer		int64
+	buffer		buffer[inout]
 	isBitmaskSet	bool8
 	bitmask		int64
 	rmStatus	NV_STATUS
@@ -340,7 +340,7 @@ UVM_REGISTER_GPU_PARAMS {
 	gpu_uuid	NvProcessorUuid
 	numaEnabled	bool8
 	numaNodeId	int32
-	rmCtrlFd	int32
+	rmCtrlFd	fd_nvidiactl
 	hClient		cid
 	hObject		NvHandle
 	rmStatus	NV_STATUS
@@ -417,8 +417,8 @@ UVM_MIGRATE_PARAMS {
 	semaphoreAddress	int64
 	semaphorePayload	int64
 	cpuNumaNode		int32
-	userSpaceStart		int64
-	userSpaceLength		int64
+	userSpaceStart		buffer[out]
+	userSpaceLength		bytesize[userSpaceStart, int64]
 	rmStatus		NV_STATUS
 }
 
@@ -438,13 +438,22 @@ UVM_DISABLE_SYSTEM_WIDE_ATOMICS_PARAMS {
 	rmStatus	NV_STATUS
 }
 
+UvmToolsEventControlData {
+	get_ahead	int32
+	get_behind	int32
+	put_ahead	int32
+	put_behind	int32
+	dropped		array[int64, 64]
+}
+
 UVM_TOOLS_INIT_EVENT_TRACKER_PARAMS {
+# TODO UvmEventEntry type
 	queueBuffer	int64
 	queueBufferSize	int64
-	controlBuffer	int64
+	controlBuffer	ptr64[in, UvmToolsEventControlData]
 	processor	NvProcessorUuid
 	allProcessors	int32
-	uvmFd		int32
+	uvmFd		fd_nvidia_uvm
 	rmStatus	NV_STATUS
 }
 
@@ -474,24 +483,24 @@ UVM_TOOLS_DISABLE_COUNTERS_PARAMS {
 }
 
 UVM_TOOLS_READ_PROCESS_MEMORY_PARAMS {
-	buffer		int64
-	size		int64
-	targetVa	int64
+	buffer		buffer[in]
+	size		bytesize[buffer, int64]
+	targetVa	buffer[in]
 	bytesRead	int64
 	rmStatus	NV_STATUS
 }
 
 UVM_TOOLS_WRITE_PROCESS_MEMORY_PARAMS {
-	buffer		int64
-	size		int64
-	targetVa	int64
+	buffer		buffer[in]
+	size		bytesize[buffer, int64]
+	targetVa	buffer[in]
 	bytesWritten	int64
 	rmStatus	NV_STATUS
 }
 
 UVM_TOOLS_GET_PROCESSOR_UUID_TABLE_PARAMS {
-	tablePtr	int64
-	count		int32
+	tablePtr	ptr64[out, array[NvProcessorUuid]]
+	count		len[tablePtr, int32]
 	rmStatus	NV_STATUS
 }
 

@@ -49,7 +49,7 @@ ioctl$NV_ESC_SET_NUMA_STATUS(fd fd_nvidia0, cmd const[NV_ESC_SET_NUMA_STATUS], a
 # nvidiactl
 
 # 0x2a
-ioctl$NVRM_IOCTL_CALL(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_t])
+# ioctl$NVRM_IOCTL_CALL(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_t])
 # 0x29
 ioctl$NVRM_IOCTL_DESTROY(fd fd_nvidiactl, cmd const[0xc0104629], arg ptr[inout, nvrm_ioctl_destroy_t])
 # 0x54
@@ -151,7 +151,7 @@ nv_ioctl_numa_info_t {
 
 nv_blacklist_addresses_t {
 	addresses	array[int64, NV_IOCTL_NUMA_INFO_MAX_BLACKLIST_ADDRESSES]
-	numEntries	int32
+	numEntries	len[addresses, int32]
 }
 
 # more ioctls
@@ -160,7 +160,7 @@ nv_ioctl_alloc_os_event_t {
 	hClient		cid
 	hDevice		NvHandle
 	hOsEvent	NvHandle
-	fd		int32
+	fd		fd_nvidiactl
 	Status		int32
 }
 
@@ -171,7 +171,7 @@ NvHandle {
 nv_ioctl_free_os_event_t {
 	hClient	cid
 	hDevice	NvHandle
-	fd	int32
+	fd	fd_nvidiactl
 	Status	int32
 }
 
@@ -184,13 +184,12 @@ nv_ioctl_status_code_t {
 
 nv_ioctl_xfer_t {
 	cmd	int32
-	size	int32
-	ptr	int64
+	size	bytesize[ptr, int32]
+	ptr	buffer[inout]
 }
 
-# arbitrary size
 nv_attach_gpus_to_fd_t {
-	gpus	array[int32, 100]
+	gpus	array[int32]
 }
 
 nv_ioctl_query_device_intr_t {
@@ -203,16 +202,6 @@ nv_ioctl_set_numa_status_t {
 }
 
 # structs taken from envytools demmt nvrm_ioctl.h
-nvrm_ioctl_call_t {
-	cid	cid
-	handle	NvHandle
-	mthd	int32
-	_pad	int32
-# TODO method ptr struct
-	ptr	int64
-	size	int32
-	status	int32
-}
 
 nvrm_ioctl_destroy_t {
 	cid	cid
@@ -327,9 +316,9 @@ nvrm_ioctl_sched_fifo_t {
 	dev	NvHandle
 	handle	NvHandle
 	cnt	int32
-	ptr1	int64
-	ptr2	int64
-	ptr3	int64
+	ptr1	buffer[inout]
+	ptr2	buffer[inout]
+	ptr3	buffer[inout]
 	unk28	int32
 	unk2c	int32
 	status	int32
@@ -420,8 +409,8 @@ nvrm_ioctl_query {
 	cid	cid
 	handle	NvHandle
 	query	int32
-	size	int32
-	ptr	int64
+	size	bytesize[ptr, int32]
+	ptr	buffer[inout]
 	status	int32
 	_pad	int32
 }
@@ -430,9 +419,9 @@ nvrm_ioctl_unk38_t {
 	cid	cid
 	handle	NvHandle
 	unk08	int32
-	size	int32
+	size	bytesize[ptr, int32]
 # TODO pointer to what struct
-	ptr	int64
+	ptr	buffer[inout]
 	status	int32
 	_pad	int32
 }
@@ -449,8 +438,8 @@ nvrm_ioctl_config {
 	handle	NvHandle
 	unk08	int64
 	unk10	int64
-	slen	int64
-	sptr	int64
+	slen	bytesize[sptr, int64]
+	sptr	buffer[inout]
 	unk28	int64
 	unk30	int64
 	unk38	int64
@@ -459,7 +448,7 @@ nvrm_ioctl_config {
 }
 
 nvrm_ioctl_unk52 {
-	ptr	int64
+	ptr	buffer[inout]
 	unk08	int32
 	status	int32
 }
