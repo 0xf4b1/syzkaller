@@ -1,0 +1,66 @@
+# ioctl numbers have DRM_COMMAND_BASE 0x40 offset
+
+ioctl$DRM_NVIDIA_GET_CRTC_CRC32(fd fd_dri, cmd const[0x40], arg ptr[inout, drm_nvidia_get_crtc_crc32_params])
+ioctl$DRM_NVIDIA_GEM_IMPORT_NVKMS_MEMORY(fd fd_dri, cmd const[0x41], arg ptr[inout, drm_nvidia_gem_import_nvkms_memory_params])
+ioctl$DRM_NVIDIA_GEM_IMPORT_USERSPACE_MEMORY(fd fd_dri, cmd const[0x42], arg ptr[inout, drm_nvidia_gem_import_userspace_memory_params])
+ioctl$DRM_NVIDIA_GET_DEV_INFO(fd fd_dri, cmd const[0x43], arg ptr[out, drm_nvidia_get_dev_info_params])
+ioctl$DRM_NVIDIA_FENCE_SUPPORTED(fd fd_dri, cmd const[0x44], arg buffer[inout])
+ioctl$DRM_NVIDIA_FENCE_CONTEXT_CREATE(fd fd_dri, cmd const[0x45], arg ptr[inout, drm_nvidia_fence_context_create_params])
+ioctl$DRM_NVIDIA_GEM_FENCE_ATTACH(fd fd_dri, cmd const[0x46], arg ptr[in, drm_nvidia_gem_fence_attach_params])
+ioctl$DRM_NVIDIA_GET_CLIENT_CAPABILITY(fd fd_dri, cmd const[0x48], arg ptr[inout, drm_nvidia_get_client_capability_params])
+ioctl$DRM_NVIDIA_GEM_EXPORT_NVKMS_MEMORY(fd fd_dri, cmd const[0x49], arg ptr[in, drm_nvidia_gem_export_nvkms_memory_params])
+
+drm_nvidia_get_crtc_crc32_params {
+	crtc_id	int32
+	crc32	int32
+}
+
+drm_nvidia_gem_import_nvkms_memory_params {
+	mem_size		int64
+# unknown ptr
+	nvkms_params_ptr	buffer[in]
+	nvkms_params_size	bytesize[nvkms_params_ptr, int64]
+	handle			int32
+	__pad			int32
+}
+
+drm_nvidia_gem_import_userspace_memory_params {
+	size	bytesize[address, int64]
+	address	buffer[in]
+	handle	int32
+}
+
+drm_nvidia_get_dev_info_params {
+	gpu_id		int32
+	primary_index	int32
+}
+
+drm_nvidia_fence_context_create_params {
+	handle				int32
+	index				int32
+	size				int64
+# unknown ptr
+	import_mem_nvkms_params_ptr	buffer[in]
+	import_mem_nvkms_params_size	bytesize[import_mem_nvkms_params_ptr, int64]
+	event_nvkms_params_ptr		buffer[in]
+	event_nvkms_params_size		bytesize[event_nvkms_params_ptr, int64]
+}
+
+drm_nvidia_gem_fence_attach_params {
+	handle			int32
+	fence_context_handle	int32
+	sem_thresh		int32
+}
+
+drm_nvidia_get_client_capability_params {
+	capability	int64
+	value		int64
+}
+
+drm_nvidia_gem_export_nvkms_memory_params {
+	handle			int32
+	__pad			int32
+# unknown ptr
+	nvkms_params_ptr	buffer[in]
+	nvkms_params_size	bytesize[nvkms_params_ptr, int64]
+}
