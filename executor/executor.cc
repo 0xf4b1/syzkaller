@@ -66,7 +66,7 @@ typedef unsigned char uint8;
 // Note: zircon max fd is 256.
 // Some common_OS.h files know about this constant for RLIMIT_NOFILE.
 const int kMaxFd = 250;
-const int kMaxThreads = 16;
+const int kMaxThreads = 1;
 const int kInPipeFd = kMaxFd - 1; // remapped from stdin
 const int kOutPipeFd = kMaxFd - 2; // remapped from stdout
 const int kCoverFd = kOutPipeFd - kMaxThreads;
@@ -335,7 +335,7 @@ static void setup_features(char** enable, int n);
 #include "syscalls.h"
 
 #if GOOS_linux
-#include "executor_linux.h"
+#include "executor_linux_bp.h"
 #elif GOOS_fuchsia
 #include "executor_fuchsia.h"
 #elif GOOS_akaros
