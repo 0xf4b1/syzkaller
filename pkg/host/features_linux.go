@@ -16,8 +16,8 @@ import (
 
 func init() {
 	checkFeature[FeatureCoverage] = checkCoverage
-	checkFeature[FeatureComparisons] = checkComparisons
-	checkFeature[FeatureExtraCoverage] = checkExtraCoverage
+	// checkFeature[FeatureComparisons] = checkComparisons
+	// checkFeature[FeatureExtraCoverage] = checkExtraCoverage
 	checkFeature[FeatureSandboxSetuid] = unconditionallyEnabled
 	checkFeature[FeatureSandboxNamespace] = checkSandboxNamespace
 	checkFeature[FeatureSandboxAndroid] = checkSandboxAndroid
