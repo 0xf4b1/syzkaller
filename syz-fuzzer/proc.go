@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"os/exec"
 	"runtime/debug"
 	"sync/atomic"
 	"syscall"
@@ -99,6 +100,18 @@ func (proc *Proc) loop() {
 	}
 }
 
+func (proc *Proc) fullCover(enable bool) {
+	arg := "0"
+	if enable {
+		arg = "1"
+	}
+	cmd := exec.Command("/syz-bp-triage", arg)
+	err := cmd.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func (proc *Proc) triageInput(item *WorkTriage) {
 	log.Logf(1, "#%v: triaging type=%x", proc.pid, item.flags)
 
@@ -108,6 +121,7 @@ func (proc *Proc) triageInput(item *WorkTriage) {
 	if newSignal.Empty() {
 		return
 	}
+	proc.fullCover(true)
 	callName := ".extra"
 	logCallName := "extra"
 	if item.call != -1 {
@@ -128,6 +142,7 @@ func (proc *Proc) triageInput(item *WorkTriage) {
 			// The call was not executed or failed.
 			notexecuted++
 			if notexecuted > signalRuns/2+1 {
+				proc.fullCover(false)
 				return // if happens too often, give up
 			}
 			continue
@@ -137,6 +152,7 @@ func (proc *Proc) triageInput(item *WorkTriage) {
 		// Without !minimized check manager starts losing some considerable amount
 		// of coverage after each restart. Mechanics of this are not completely clear.
 		if newSignal.Empty() && item.flags&ProgMinimized == 0 {
+			proc.fullCover(false)
 			return
 		}
 		inputCover.Merge(thisCover)
@@ -175,6 +191,7 @@ func (proc *Proc) triageInput(item *WorkTriage) {
 	if item.flags&ProgSmashed == 0 {
 		proc.fuzzer.workQueue.enqueue(&WorkSmash{item.p, item.call})
 	}
+	proc.fullCover(false)
 }
 
 func reexecutionSuccess(info *ipc.ProgInfo, oldInfo *ipc.CallInfo, call int) bool {
