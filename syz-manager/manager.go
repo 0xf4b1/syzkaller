@@ -614,6 +614,11 @@ func (mgr *Manager) runInstanceInner(index int, instanceName string) (*report.Re
 		}
 	}
 
+	// Execute custom command from config on host before starting fuzzer
+	if len(mgr.cfg.Command) > 0 {
+		exec.Command(mgr.cfg.Command[0], mgr.cfg.Command[1:]...).Run()
+	}
+
 	fuzzerV := 0
 	procs := mgr.cfg.Procs
 	if *flagDebug {

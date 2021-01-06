@@ -116,4 +116,7 @@ type Config struct {
 	SyzFuzzerBin   string `json:"-"`
 	SyzExecprogBin string `json:"-"`
 	SyzExecutorBin string `json:"-"`
+
+	// Execute custom command on the host before starting the fuzzer binary inside the VM
+	Command []string `json:"command"`
 }
