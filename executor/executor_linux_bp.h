@@ -52,8 +52,8 @@ static void cover_open(cover_t* cov, bool extra)
 				PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 	memset(cov->data, 0x0, mmap_alloc_size);
 
-	// breakpoint to signal coverage buffer for current thread
-	asm("int $3");
+	// hypercall to signal coverage buffer for current thread
+	asm("int $3" ::"a"(0x41), "b"(cov->data));
 
 	if (cov->data == MAP_FAILED)
 		fail("cover mmap failed");
