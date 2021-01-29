@@ -115,7 +115,6 @@ static uint32* output_pos;
 static uint32* write_output(uint32 v);
 static uint32* write_output_64(uint64 v);
 static void write_completed(uint32 completed);
-static uint32 hash(uint32 a);
 static bool dedup(uint32 sig);
 #endif
 
@@ -862,20 +861,18 @@ void write_coverage_signal(cover_t* cov, uint32* signal_count_pos, uint32* cover
 {
 	// Write out feedback signals.
 	// Currently it is code edges computed as xor of two subsequent basic block PCs.
+	// Changed to basic block PCs for BP mode.
 	cover_data_t* cover_data = ((cover_data_t*)cov->data) + 1;
 	uint32 nsig = 0;
-	cover_data_t prev = 0;
 	for (uint32 i = 0; i < cov->size; i++) {
 		cover_data_t pc = cover_data[i];
 		if (!cover_check(pc)) {
 			debug("got bad pc: 0x%llx\n", (uint64)pc);
 			doexit(0);
 		}
-		cover_data_t sig = pc ^ prev;
-		prev = hash(pc);
-		if (dedup(sig))
+		if (dedup(pc))
 			continue;
-		write_output(sig);
+		write_output(pc);
 		nsig++;
 	}
 	// Write out number of signals.
@@ -1142,15 +1139,6 @@ void execute_call(thread_t* th)
 }
 
 #if SYZ_EXECUTOR_USES_SHMEM
-static uint32 hash(uint32 a)
-{
-	a = (a ^ 61) ^ (a >> 16);
-	a = a + (a << 3);
-	a = a ^ (a >> 4);
-	a = a * 0x27d4eb2d;
-	a = a ^ (a >> 15);
-	return a;
-}
 
 const uint32 dedup_table_size = 8 << 10;
 uint32 dedup_table[dedup_table_size];
