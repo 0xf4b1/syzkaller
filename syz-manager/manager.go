@@ -14,6 +14,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -616,7 +617,11 @@ func (mgr *Manager) runInstanceInner(index int, instanceName string) (*report.Re
 
 	// Execute custom command from config on host before starting fuzzer
 	if len(mgr.cfg.Command) > 0 {
-		exec.Command(mgr.cfg.Command[0], mgr.cfg.Command[1:]...).Run()
+		var custom = make([]string, len(mgr.cfg.Command))
+		for i := range mgr.cfg.Command {
+			custom[i] = strings.ReplaceAll(mgr.cfg.Command[i], "{{INDEX}}", fmt.Sprint(index))
+		}
+		exec.Command(custom[0], custom[1:]...).Run()
 	}
 
 	fuzzerV := 0
