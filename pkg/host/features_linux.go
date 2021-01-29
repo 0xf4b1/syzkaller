@@ -33,15 +33,7 @@ func init() {
 }
 
 func checkCoverage() string {
-	if reason := checkDebugFS(); reason != "" {
-		return reason
-	}
-	if !osutil.IsExist("/sys/kernel/debug/kcov") {
-		return "CONFIG_KCOV is not enabled"
-	}
-	if err := osutil.IsAccessible("/sys/kernel/debug/kcov"); err != nil {
-		return err.Error()
-	}
+	// BP mode has no requirements within the VM
 	return ""
 }
 
