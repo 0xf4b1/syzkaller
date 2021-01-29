@@ -136,6 +136,7 @@ func (proc *Proc) triageInput(item *WorkTriage) {
 	)
 	// Compute input coverage and non-flaky signal for minimization.
 	notexecuted := 0
+	init := false
 	for i := 0; i < signalRuns; i++ {
 		info := proc.executeRaw(proc.execOptsCover, item.p, StatTriage)
 		if !reexecutionSuccess(info, &item.info, item.call) {
@@ -148,6 +149,11 @@ func (proc *Proc) triageInput(item *WorkTriage) {
 			continue
 		}
 		thisSignal, thisCover := getSignalAndCover(item.p, info, item.call)
+		if !init {
+			inputSignal = thisSignal
+			newSignal = proc.fuzzer.corpusSignalDiff(thisSignal)
+			init = true
+		}
 		newSignal = newSignal.Intersection(thisSignal)
 		// Without !minimized check manager starts losing some considerable amount
 		// of coverage after each restart. Mechanics of this are not completely clear.
