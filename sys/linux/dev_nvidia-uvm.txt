@@ -26,6 +26,8 @@ ioctl$UVM_EVENT_CTRL(fd fd_nvidia_uvm, cmd const[UVM_EVENT_CTRL], arg ptr[inout,
 ioctl$UVM_REGISTER_MPS_SERVER(fd fd_nvidia_uvm, cmd const[UVM_REGISTER_MPS_SERVER], arg ptr[inout, UVM_REGISTER_MPS_SERVER_PARAMS])
 ioctl$UVM_REGISTER_MPS_CLIENT(fd fd_nvidia_uvm, cmd const[UVM_REGISTER_MPS_CLIENT], arg ptr[inout, UVM_REGISTER_MPS_CLIENT_PARAMS])
 ioctl$UVM_GET_GPU_UUID_TABLE(fd fd_nvidia_uvm, cmd const[UVM_GET_GPU_UUID_TABLE], arg ptr[out, UVM_GET_GPU_UUID_TABLE_PARAMS])
+ioctl$UVM_REGION_SET_BACKING(fd fd_nvidia_uvm, cmd const[UVM_REGION_SET_BACKING], arg ptr[inout, UVM_REGION_SET_BACKING_PARAMS])
+ioctl$UVM_REGION_UNSET_BACKING(fd fd_nvidia_uvm, cmd const[UVM_REGION_UNSET_BACKING], arg ptr[inout, UVM_REGION_UNSET_BACKING_PARAMS])
 ioctl$UVM_CREATE_RANGE_GROUP(fd fd_nvidia_uvm, cmd const[UVM_CREATE_RANGE_GROUP], arg ptr[out, UVM_CREATE_RANGE_GROUP_PARAMS])
 ioctl$UVM_DESTROY_RANGE_GROUP(fd fd_nvidia_uvm, cmd const[UVM_DESTROY_RANGE_GROUP], arg ptr[inout, UVM_DESTROY_RANGE_GROUP_PARAMS])
 ioctl$UVM_REGISTER_GPU_VASPACE(fd fd_nvidia_uvm, cmd const[UVM_REGISTER_GPU_VASPACE], arg ptr[inout, UVM_REGISTER_GPU_VASPACE_PARAMS])
@@ -73,8 +75,6 @@ ioctl$UVM_POPULATE_PAGEABLE(fd fd_nvidia_uvm, cmd const[UVM_POPULATE_PAGEABLE], 
 ioctl$UVM_VALIDATE_VA_RANGE(fd fd_nvidia_uvm, cmd const[UVM_VALIDATE_VA_RANGE], arg ptr[inout, UVM_VALIDATE_VA_RANGE_PARAMS])
 ioctl$UVM_IS_8_SUPPORTED(fd fd_nvidia_uvm, cmd const[UVM_IS_8_SUPPORTED], arg ptr[inout, UVM_IS_8_SUPPORTED_PARAMS])
 
-define NV_UUID_LEN	16
-
 type NV_STATUS int32
 type UvmStream int64
 type NvProcessorUuid NvUuid
@@ -92,72 +92,70 @@ UvmGpuMappingAttributes {
 }
 
 UVM_RESERVE_VA_PARAMS {
-	requestedBase	int64
-	length		int64
-	rmStatus	NV_STATUS
+	requestedBase	int64	(in)
+	length		int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_RELEASE_VA_PARAMS {
-	requestedBase	int64
-	length		int64
-	rmStatus	NV_STATUS
+	requestedBase	int64	(in)
+	length		int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_REGION_COMMIT_PARAMS {
-	requestedBase	int64
-	length		int64
-	streamId	UvmStream
-	gpuUuid		NvUuid
-	rmStatus	NV_STATUS
+	requestedBase	int64	(in)
+	length		int64	(in)
+	streamId	UvmStream	(in)
+	gpuUuid		NvUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_REGION_DECOMMIT_PARAMS {
-	requestedBase	int64
-	length		int64
-	rmStatus	NV_STATUS
+	requestedBase	int64	(in)
+	length		int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_REGION_SET_STREAM_PARAMS {
-	requestedBase	int64
-	length		int64
-	newStreamId	UvmStream
-	gpuUuid		NvProcessorUuid
-	rmStatus	NV_STATUS
+	requestedBase	int64	(in)
+	length		int64	(in)
+	newStreamId	UvmStream	(in)
+	gpuUuid		NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_SET_STREAM_RUNNING_PARAMS {
-	streamId	UvmStream
-	rmStatus	NV_STATUS
+	streamId	UvmStream	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
-define UVM_MAX_STREAMS_PER_IOCTL_CALL	32
-
 UVM_SET_STREAM_STOPPED_PARAMS {
-	streamIdArray	array[UvmStream, UVM_MAX_STREAMS_PER_IOCTL_CALL]
-	nStreams	int64
-	rmStatus	NV_STATUS
+	streamIdArray	array[UvmStream, UVM_MAX_STREAMS_PER_IOCTL_CALL]	(in)
+	nStreams	int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_RUN_TEST_PARAMS {
-	gpuUuid		NvProcessorUuid
-	test		int32
+	gpuUuid		NvProcessorUuid	(in)
+	test		int32	(in)
 # struct multiGpu
-	peerGpuUuid	NvProcessorUuid
-	peerId		int32
-	rmStatus	NV_STATUS
+	peerGpuUuid	NvProcessorUuid	(in)
+	peerId		int32	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_ADD_SESSION_PARAMS {
-	pidTarget		int32
+	pidTarget		int32	(in)
 # TODO ptr64 to something
-	countersBaseAddress	int64
-	sessionIndex		int32
-	rmStatus		NV_STATUS
+	countersBaseAddress	int64	(in)
+	sessionIndex		int32	(out)
+	rmStatus		NV_STATUS	(out)
 }
 
 UVM_REMOVE_SESSION_PARAMS {
-	sessionIndex	int32
-	rmStatus	NV_STATUS
+	sessionIndex	int32	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UvmCounterConfig {
@@ -167,275 +165,285 @@ UvmCounterConfig {
 	state	int32
 }
 
-define UVM_MAX_COUNTERS_PER_IOCTL_CALL	32
-
 UVM_ENABLE_COUNTERS_PARAMS {
-	sessionIndex	int32
-	config		array[UvmCounterConfig, UVM_MAX_COUNTERS_PER_IOCTL_CALL]
-	count		int32
-	rmStatus	NV_STATUS
+	sessionIndex	int32	(in)
+	config		array[UvmCounterConfig, UVM_MAX_COUNTERS_PER_IOCTL_CALL]	(in)
+	count		int32	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_MAP_COUNTER_PARAMS {
-	sessionIndex	int32
-	scope		int32
-	counterName	int32
-	gpuUuid		NvProcessorUuid
+	sessionIndex	int32	(in)
+	scope		int32	(in)
+	counterName	int32	(in)
+	gpuUuid		NvProcessorUuid	(in)
 # TODO ptr64 to something
 	addr		buffer[out]
-	rmStatus	NV_STATUS
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_CREATE_EVENT_QUEUE_PARAMS {
-	sessionIndex		int32
-	eventQueueIndex		int32
-	queueSize		int64
-	notificationCount	int64
-	timeStampType		int32
-	rmStatus		NV_STATUS
+	sessionIndex		int32	(in)
+	eventQueueIndex		int32	(out)
+	queueSize		int64	(in)
+	notificationCount	int64	(in)
+	timeStampType		int32	(in)
+	rmStatus		NV_STATUS	(out)
 }
 
 UVM_REMOVE_EVENT_QUEUE_PARAMS {
-	sessionIndex	int32
-	eventQueueIndex	int32
-	rmStatus	NV_STATUS
+	sessionIndex	int32	(in)
+	eventQueueIndex	int32	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_MAP_EVENT_QUEUE_PARAMS {
-	sessionIndex	int32
-	eventQueueIndex	int32
+	sessionIndex	int32	(in)
+	eventQueueIndex	int32	(in)
 # TODO pointers to something
 	userRODataAddr	buffer[in]
 	userRWDataAddr	buffer[in]
 	readIndexAddr	buffer[out]
 	writeIndexAddr	buffer[out]
 	queueBufferAddr	buffer[out]
-	rmStatus	NV_STATUS
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_EVENT_CTRL_PARAMS {
-	sessionIndex	int32
-	eventQueueIndex	int32
-	eventType	int32
-	enable		int32
-	rmStatus	NV_STATUS
+	sessionIndex	int32	(in)
+	eventQueueIndex	int32	(in)
+	eventType	int32	(in)
+	enable		int32	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_REGISTER_MPS_SERVER_PARAMS {
-	gpuUuidArray	array[NvProcessorUuid, 32]
-	numGpus		int32
-	serverId	int64
-	rmStatus	NV_STATUS
+	gpuUuidArray	array[NvProcessorUuid, 32]	(in)
+	numGpus		int32	(in)
+	serverId	int64	(out)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_REGISTER_MPS_CLIENT_PARAMS {
-	serverId	int64
-	rmStatus	NV_STATUS
+	serverId	int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_GET_GPU_UUID_TABLE_PARAMS {
-	gpuUuidArray	array[NvProcessorUuid, 32]
-	validCount	int32
-	rmStatus	NV_STATUS
+	gpuUuidArray	array[NvProcessorUuid, 32]	(out)
+	validCount	int32	(out)
+	rmStatus	NV_STATUS	(out)
+}
+
+UVM_REGION_SET_BACKING_PARAMS {
+	gpuUuid		NvProcessorUuid	(in)
+	hAllocation	int32	(in)
+	vaAddr		buffer[in]
+	regionLength	bytesize[vaAddr, int64]	(in)
+	rmStatus	NV_STATUS	(out)
+}
+
+UVM_REGION_UNSET_BACKING_PARAMS {
+	vaAddr		buffer[in]
+	regionLength	bytesize[vaAddr, int64]	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_CREATE_RANGE_GROUP_PARAMS {
-	rangeGroupId	int64
-	rmStatus	NV_STATUS
+	rangeGroupId	int64	(out)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_DESTROY_RANGE_GROUP_PARAMS {
-	rangeGroupId	int64
-	rmStatus	NV_STATUS
+	rangeGroupId	int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_REGISTER_GPU_VASPACE_PARAMS {
-	gpuUuid		NvProcessorUuid
-	rmCtrlFd	fd_nvidiactl
-	hClient		cid
-	hVaSpace	NvHandle
-	rmStatus	NV_STATUS
+	gpuUuid		NvProcessorUuid	(in)
+	rmCtrlFd	fd_nvidiactl	(in)
+	hClient		cid	(in)
+	hVaSpace	NvHandle	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_UNREGISTER_GPU_VASPACE_PARAMS {
-	gpuUuid		NvProcessorUuid
-	rmStatus	NV_STATUS
+	gpuUuid		NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_REGISTER_CHANNEL_PARAMS {
-	gpuUuid		NvProcessorUuid
-	rmCtrlFd	fd_nvidiactl
-	hClient		cid
-	hChannel	NvHandle
-	base		buffer[inout]
+	gpuUuid		NvProcessorUuid	(in)
+	rmCtrlFd	fd_nvidiactl	(in)
+	hClient		cid	(in)
+	hChannel	NvHandle	(in)
+	base		buffer[in]
 	length		bytesize[base, int64]
-	rmStatus	NV_STATUS
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_UNREGISTER_CHANNEL_PARAMS {
-	gpuUuid		NvProcessorUuid
-	hClient		cid
-	hChannel	NvHandle
-	rmStatus	NV_STATUS
+	gpuUuid		NvProcessorUuid	(in)
+	hClient		cid	(in)
+	hChannel	NvHandle	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_ENABLE_PEER_ACCESS_PARAMS {
-	gpuUuidA	NvProcessorUuid
-	gpuUuidB	NvProcessorUuid
-	rmStatus	NV_STATUS
+	gpuUuidA	NvProcessorUuid	(in)
+	gpuUuidB	NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_DISABLE_PEER_ACCESS_PARAMS {
-	gpuUuidA	NvProcessorUuid
-	gpuUuidB	NvProcessorUuid
-	rmStatus	NV_STATUS
+	gpuUuidA	NvProcessorUuid	(in)
+	gpuUuidB	NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_SET_RANGE_GROUP_PARAMS {
-	rangeGroupId	int64
-	requestedBase	int64
-	length		int64
-	rmStatus	NV_STATUS
+	rangeGroupId	int64	(in)
+	requestedBase	int64	(in)
+	length		int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_MAP_EXTERNAL_ALLOCATION_PARAMS {
-	base			int64
-	length			int64
-	offset			int64
-	perGpuAttributes	array[UvmGpuMappingAttributes, UVM_MAX_GPUS]
-	gpuAttributesCount	int64
-	rmCtrlFd		fd_nvidiactl
-	hClient			cid
-	hMemory			int32
-	hClientFromRm		int32
-	hMemoryFromRm		int32
-	rmStatus		NV_STATUS
+	base			int64	(in)
+	length			int64	(in)
+	offset			int64	(in)
+	perGpuAttributes	array[UvmGpuMappingAttributes, UVM_MAX_GPUS]	(in)
+	gpuAttributesCount	int64	(in)
+	rmCtrlFd		fd_nvidiactl	(in)
+	hClient			cid	(in)
+	hMemory			int32	(in)
+	hClientFromRm		int32	(in)
+	hMemoryFromRm		int32	(in)
+	rmStatus		NV_STATUS	(out)
 }
 
 UVM_FREE_PARAMS {
-	base		int64
-	length		int64
-	rmStatus	NV_STATUS
+	base		int64	(in)
+	length		int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_MEM_MAP_PARAMS {
 # TODO ptr64 to something
-	regionBase	buffer[inout]
+	regionBase	buffer[in]
 	regionLength	bytesize[regionBase, int64]
-	rmStatus	NV_STATUS
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_DEBUG_ACCESS_MEMORY_PARAMS {
-	sessionIndex	int32
-	baseAddress	int64
-	sizeInBytes	int64
-	accessType	int32
+	sessionIndex	int32	(in)
+	baseAddress	int64	(in)
+	sizeInBytes	int64	(in)
+	accessType	int32	(in)
 	buffer		buffer[inout]
-	isBitmaskSet	bool8
-	bitmask		int64
-	rmStatus	NV_STATUS
+	isBitmaskSet	bool8	(out)
+	bitmask		int64	(inout)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_REGISTER_GPU_PARAMS {
-	gpu_uuid	NvProcessorUuid
-	numaEnabled	bool8
-	numaNodeId	int32
-	rmCtrlFd	fd_nvidiactl
-	hClient		cid
-	hObject		NvHandle
-	rmStatus	NV_STATUS
+	gpu_uuid	NvProcessorUuid	(in)
+	numaEnabled	bool8	(out)
+	numaNodeId	int32	(out)
+	rmCtrlFd	fd_nvidiactl	(in)
+	hClient		cid	(in)
+	hObject		NvHandle	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_UNREGISTER_GPU_PARAMS {
-	gpu_uuid	NvProcessorUuid
-	rmStatus	NV_STATUS
+	gpu_uuid	NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_PAGEABLE_MEM_ACCESS_PARAMS {
-	pageableMemAccess	bool8
-	rmStatus		NV_STATUS
+	pageableMemAccess	bool8	(out)
+	rmStatus		NV_STATUS	(out)
 }
 
-define UVM_MAX_RANGE_GROUPS_PER_IOCTL_CALL	32
-
 UVM_PREVENT_MIGRATION_RANGE_GROUPS_PARAMS {
-	rangeGroupIds	array[int64, UVM_MAX_RANGE_GROUPS_PER_IOCTL_CALL]
-	numGroupIds	int64
-	rmStatus	NV_STATUS
+	rangeGroupIds	array[int64, UVM_MAX_RANGE_GROUPS_PER_IOCTL_CALL]	(in)
+	numGroupIds	int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_ALLOW_MIGRATION_RANGE_GROUPS_PARAMS {
-	rangeGroupIds	array[int64, UVM_MAX_RANGE_GROUPS_PER_IOCTL_CALL]
-	numGroupIds	int64
-	rmStatus	NV_STATUS
+	rangeGroupIds	array[int64, UVM_MAX_RANGE_GROUPS_PER_IOCTL_CALL]	(in)
+	numGroupIds	int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_SET_PREFERRED_LOCATION_PARAMS {
-	requestedBase		int64
-	length			int64
-	preferredLocation	NvProcessorUuid
-	rmStatus		NV_STATUS
+	requestedBase		int64	(in)
+	length			int64	(in)
+	preferredLocation	NvProcessorUuid	(in)
+	rmStatus		NV_STATUS	(out)
 }
 
 UVM_UNSET_PREFERRED_LOCATION_PARAMS {
-	requestedBase	int64
-	length		int64
-	rmStatus	NV_STATUS
+	requestedBase	int64	(in)
+	length		int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_ENABLE_READ_DUPLICATION_PARAMS {
-	requestedBase	int64
-	length		int64
-	rmStatus	NV_STATUS
+	requestedBase	int64	(in)
+	length		int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_DISABLE_READ_DUPLICATION_PARAMS {
-	requestedBase	int64
-	length		int64
-	rmStatus	NV_STATUS
+	requestedBase	int64	(in)
+	length		int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_SET_ACCESSED_BY_PARAMS {
-	requestedBase	int64
-	length		int64
-	accessedByUuid	NvProcessorUuid
-	rmStatus	NV_STATUS
+	requestedBase	int64	(in)
+	length		int64	(in)
+	accessedByUuid	NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_UNSET_ACCESSED_BY_PARAMS {
-	requestedBase	int64
-	length		int64
-	accessedByUuid	NvProcessorUuid
-	rmStatus	NV_STATUS
+	requestedBase	int64	(in)
+	length		int64	(in)
+	accessedByUuid	NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_MIGRATE_PARAMS {
-	base			int64
-	length			int64
-	destinationUuid		NvProcessorUuid
-	flags			int32
-	semaphoreAddress	int64
-	semaphorePayload	int64
-	cpuNumaNode		int32
+	base			int64	(in)
+	length			int64	(in)
+	destinationUuid		NvProcessorUuid	(in)
+	flags			int32	(in)
+	semaphoreAddress	int64	(in)
+	semaphorePayload	int64	(in)
+	cpuNumaNode		int32	(in)
 	userSpaceStart		buffer[out]
-	userSpaceLength		bytesize[userSpaceStart, int64]
-	rmStatus		NV_STATUS
+	userSpaceLength		bytesize[userSpaceStart, int64]	(out)
+	rmStatus		NV_STATUS	(out)
 }
 
 UVM_MIGRATE_RANGE_GROUP_PARAMS {
-	rangeGroupId	int64
-	destinationUuid	NvProcessorUuid
-	rmStatus	NV_STATUS
+	rangeGroupId	int64	(in)
+	destinationUuid	NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_ENABLE_SYSTEM_WIDE_ATOMICS_PARAMS {
-	gpu_uuid	NvProcessorUuid
-	rmStatus	NV_STATUS
+	gpu_uuid	NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_DISABLE_SYSTEM_WIDE_ATOMICS_PARAMS {
-	gpu_uuid	NvProcessorUuid
-	rmStatus	NV_STATUS
+	gpu_uuid	NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UvmToolsEventControlData {
@@ -448,111 +456,111 @@ UvmToolsEventControlData {
 
 UVM_TOOLS_INIT_EVENT_TRACKER_PARAMS {
 # TODO UvmEventEntry type
-	queueBuffer	int64
-	queueBufferSize	int64
+	queueBuffer	int64	(in)
+	queueBufferSize	int64	(in)
 	controlBuffer	ptr64[in, UvmToolsEventControlData]
-	processor	NvProcessorUuid
-	allProcessors	int32
-	uvmFd		fd_nvidia_uvm
-	rmStatus	NV_STATUS
+	processor	NvProcessorUuid	(in)
+	allProcessors	int32	(in)
+	uvmFd		fd_nvidia_uvm	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_TOOLS_SET_NOTIFICATION_THRESHOLD_PARAMS {
-	notificationThreshold	int32
-	rmStatus		NV_STATUS
+	notificationThreshold	int32	(in)
+	rmStatus		NV_STATUS	(out)
 }
 
 UVM_TOOLS_EVENT_QUEUE_ENABLE_EVENTS_PARAMS {
-	eventTypeFlags	int64
-	rmStatus	NV_STATUS
+	eventTypeFlags	int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_TOOLS_EVENT_QUEUE_DISABLE_EVENTS_PARAMS {
-	eventTypeFlags	int64
-	rmStatus	NV_STATUS
+	eventTypeFlags	int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_TOOLS_ENABLE_COUNTERS_PARAMS {
-	counterTypeFlags	int64
-	rmStatus		NV_STATUS
+	counterTypeFlags	int64	(in)
+	rmStatus		NV_STATUS	(out)
 }
 
 UVM_TOOLS_DISABLE_COUNTERS_PARAMS {
-	counterTypeFlags	int64
-	rmStatus		NV_STATUS
+	counterTypeFlags	int64	(in)
+	rmStatus		NV_STATUS	(out)
 }
 
 UVM_TOOLS_READ_PROCESS_MEMORY_PARAMS {
 	buffer		buffer[in]
-	size		bytesize[buffer, int64]
+	size		bytesize[buffer, int64]	(in)
 	targetVa	buffer[in]
-	bytesRead	int64
-	rmStatus	NV_STATUS
+	bytesRead	int64	(out)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_TOOLS_WRITE_PROCESS_MEMORY_PARAMS {
 	buffer		buffer[in]
-	size		bytesize[buffer, int64]
+	size		bytesize[buffer, int64]	(in)
 	targetVa	buffer[in]
-	bytesWritten	int64
-	rmStatus	NV_STATUS
+	bytesWritten	int64	(out)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_TOOLS_GET_PROCESSOR_UUID_TABLE_PARAMS {
-	tablePtr	ptr64[out, array[NvProcessorUuid]]
-	count		len[tablePtr, int32]
-	rmStatus	NV_STATUS
+	tablePtr	ptr64[out, array[NvProcessorUuid]]	(in)
+	count		len[tablePtr, int32]	(inout)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_MAP_DYNAMIC_PARALLELISM_REGION_PARAMS {
-	base		int64
-	length		int64
-	gpuUuid		NvProcessorUuid
-	rmStatus	NV_STATUS
+	base		int64	(in)
+	length		int64	(in)
+	gpuUuid		NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_UNMAP_EXTERNAL_ALLOCATION_PARAMS {
-	base		int64
-	gpuUuid		NvProcessorUuid
-	rmStatus	NV_STATUS
+	base		int64	(in)
+	gpuUuid		NvProcessorUuid	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_TOOLS_FLUSH_EVENTS_PARAMS {
-	rmStatus	NV_STATUS
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_ALLOC_SEMAPHORE_POOL_PARAMS {
-	base			int64
-	length			int64
-	perGpuAttributes	array[UvmGpuMappingAttributes, UVM_MAX_GPUS]
-	gpuAttributesCount	int64
-	rmStatus		NV_STATUS
+	base			int64	(in)
+	length			int64	(in)
+	perGpuAttributes	array[UvmGpuMappingAttributes, UVM_MAX_GPUS]	(in)
+	gpuAttributesCount	int64	(in)
+	rmStatus		NV_STATUS	(out)
 }
 
 UVM_CLEAN_UP_ZOMBIE_RESOURCES_PARAMS {
-	rmStatus	NV_STATUS
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS {
-	gpu_uuid		NvProcessorUuid
-	pageableMemAccess	bool8
-	rmStatus		NV_STATUS
+	gpu_uuid		NvProcessorUuid	(in)
+	pageableMemAccess	bool8	(out)
+	rmStatus		NV_STATUS	(out)
 }
 
 UVM_POPULATE_PAGEABLE_PARAMS {
-	base		int64
-	length		int64
-	flags		int32
-	rmStatus	NV_STATUS
+	base		int64	(in)
+	length		int64	(in)
+	flags		int32	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_VALIDATE_VA_RANGE_PARAMS {
-	base		int64
-	length		int64
-	rmStatus	NV_STATUS
+	base		int64	(in)
+	length		int64	(in)
+	rmStatus	NV_STATUS	(out)
 }
 
 UVM_IS_8_SUPPORTED_PARAMS {
-	is8Supported	int32
-	rmStatus	NV_STATUS
+	is8Supported	int32	(out)
+	rmStatus	NV_STATUS	(out)
 }
