@@ -79,6 +79,7 @@ ioctl$NVRM_IOCTL_CREATE_VSPACE56(fd fd_nvidia0, cmd const[0xc0384627], arg ptr[i
 ioctl$NVRM_IOCTL_CREATE(fd fd_nvidiactl, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_t])
 ioctl$NVRM_IOCTL_CREATE_2(fd fd_nvidia0, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_t])
 ioctl$NVRM_IOCTL_CREATE_CONTEXT(fd fd_nvidiactl, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_context])
+ioctl$NVRM_IOCTL_CREATE_SUBCONTEXT(fd fd_nvidiactl, cmd const[0xc020462b], arg ptr[inout, nvrm_ioctl_create_subcontext])
 
 # more ioctls from nvrm_ioctl.h
 
@@ -102,16 +103,16 @@ ioctl$NVRM_IOCTL_BIND(fd fd_nvidiactl, cmd const[0xc0104659], arg ptr[inout, nvr
 
 nv_ioctl_rm_api_version_t {
 	cmd		int32
-	reply		int32
-	versionString	array[int8, NV_RM_API_VERSION_STRING_LENGTH]
+	reply		int32	(out)
+	versionString	array[int8, 64]	(in)
 }
 
 nv_ioctl_sys_params_t {
-	memblock_size	int64
+	memblock_size	int64	(in)
 }
 
 nv_ioctl_env_info_t {
-	pat_supported	int32
+	pat_supported	int32	(out)
 }
 
 nv_ioctl_card_info_t {
@@ -134,7 +135,7 @@ nv_pci_info_t {
 	function	int8
 	vendor_id	int16
 	device_id	int16
-	valid		bool32
+	valid		bool8
 }
 
 nv_ioctl_numa_info_t {
@@ -147,29 +148,25 @@ nv_ioctl_numa_info_t {
 }
 
 nv_blacklist_addresses_t {
-	addresses	array[int64, NV_IOCTL_NUMA_INFO_MAX_BLACKLIST_ADDRESSES]
+	addresses	array[int64, 64]
 	numEntries	len[addresses, int32]
 }
 
 # more ioctls
 
 nv_ioctl_alloc_os_event_t {
-	hClient		cid
-	hDevice		NvHandle
-	hOsEvent	NvHandle
-	fd		fd_nvidiactl
-	Status		int32
-}
-
-NvHandle {
-	val	flags[handle, int32]
+	hClient		cid	(in)
+	hDevice		NvHandle	(in)
+	hOsEvent	int32	(out)
+	fd		fd_nvidiactl	(in)
+	Status		int32	(out)
 }
 
 nv_ioctl_free_os_event_t {
-	hClient	cid
-	hDevice	NvHandle
-	fd	fd_nvidiactl
-	Status	int32
+	hClient	cid	(in)
+	hDevice	NvHandle	(in)
+	fd	fd_nvidiactl	(in)
+	Status	int32	(out)
 }
 
 nv_ioctl_status_code_t {
@@ -186,125 +183,135 @@ nv_ioctl_xfer_t {
 }
 
 nv_attach_gpus_to_fd_t {
-	gpus	array[int32]
+	gpus	array[int32, 10]
 }
 
 nv_ioctl_query_device_intr_t {
-	intrStatus	int32
-	status		int32
+	intrStatus	int32	(out)
+	status		int32	(out)
 }
 
 nv_ioctl_set_numa_status_t {
-	status	int32
+	status	int32	(in)
 }
 
 # structs taken from envytools demmt nvrm_ioctl.h
 
+nvrm_ioctl_call_t {
+	cid	cid	(in)
+	handle	NvHandle	(in)
+	mthd	int32	(in)
+	_pad	int32
+	ptr	buffer[inout]
+	size	bytesize[ptr, int32]
+	status	int32	(out)
+}
+
 nvrm_ioctl_destroy_t {
-	cid	cid
-	par	NvHandle
-	handle	NvHandle
-	status	int32
+	cid	cid	(in)
+	par	NvHandle	(in)
+	handle	caf	(in)
+	status	int32	(out)
 }
 
 nvrm_ioctl_create_dma56_t {
-	cid	cid
+	cid	cid	(in)
 	_pad1	int32
-	handle	NvHandle
-	cls	int32
-	flags	int32
+	handle	NvHandle	(in)
+	cls	int32	(in)
+	flags	int32	(in)
 	_pad2	int32
-	par	NvHandle
+	par	caf	(in)
 	_pad3	int32
-	base	int64
-	limit	int64
-	status	int32
+	base	int64	(in)
+	limit	int64	(in)
+	status	int32	(out)
 	unk34	int32
 }
 
 nvrm_ioctl_memory3_t {
-	cid		cid
-	par		NvHandle
-	cls		int32
+	cid		cid	(in)
+	par		NvHandle	(in)
+	cls		int32	(in)
 	unk0c		int32
-	status		int32
+	status		int32	(out)
 	unk14		int32
-	vram_total	int64
-	vram_free	int64
-	vspace		int32
-	handle		NvHandle
+	vram_total	int64	(out)
+	vram_free	int64	(out)
+	vspace		int32	(in)
+	handle		caf	(out)
 	unk30		array[int32, 36]
 }
 
 nvrm_ioctl_vspace_map_t {
-	cid	cid
-	dev	NvHandle
-	vspace	int32
-	handle	NvHandle
+	cid	cid	(in)
+	dev	NvHandle	(in)
+	vspace	NvHandle	(in)
+	handle	caf	(in)
 	base	int64
-	size	int64
+	size	int64	(in)
 	flags	int32
 	_pad1	int32
-	addr	int64
-	status	int32
+	addr	int64	(out)
+	status	int32	(out)
 	_pad2	int32
 }
 
 nvrm_ioctl_host_map56 {
-	cid		cid
-	subdev		NvHandle
-	handle		NvHandle
+	cid		cid	(in)
+	subdev		NvHandle	(in)
+	handle		caf	(in)
 	_pad1		int32
 	foffset		int64
-	length		int64
-	map_id		int64
-	status		int32
+	length		int64	(in)
+	map_id		int64	(out)
+	status		int32	(out)
 	_pad2		int32
 # TODO fd_nvidia0 used?
-	target_fd	fd_nvidiactl
+	target_fd	fd_nvidiactl	(in)
 	_pad3		int32
 }
 
 nvrm_ioctl_create_unk34_t {
-	cid	cid
-	par	NvHandle
-	handle	NvHandle
-	cid2	int32
-	handle2	NvHandle
+	cid	cid	(in)
+	par	NvHandle	(in)
+	handle	caf	(out)
+	cid2	int32	(in)
+	handle2	NvHandle	(in)
 	unk14	int32
-	status	int32
+	status	int32	(out)
 }
 
 nvrm_ioctl_unk5e_t {
-	cid	cid
-	subdev	NvHandle
-	handle	NvHandle
+	cid	cid	(in)
+	subdev	NvHandle	(in)
+	handle	caf	(in)
 	_pad1	int32
-	foffset	int64
+	foffset	int64	(in)
 # TODO "to just-mmapped thing"
-	ptr	int64
-	status	int32
+	ptr	int64	(in)
+	status	int32	(out)
 	_pad2	int32
 }
 
 nvrm_ioctl_vspace_unmap_t {
-	cid	cid
-	dev	NvHandle
-	vspace	int32
-	handle	NvHandle
+	cid	cid	(in)
+	dev	NvHandle	(in)
+	vspace	NvHandle	(in)
+	handle	caf	(in)
 	unk10	int64
-	addr	int64
-	status	int32
+	addr	int64	(in)
+	status	int32	(out)
 	_pad	int32
 }
 
 nvrm_ioctl_host_unmap_t {
-	cid	cid
-	subdev	NvHandle
-	handle	NvHandle
+	cid	cid	(in)
+	subdev	NvHandle	(in)
+	handle	caf	(in)
 	_pad1	int32
-	foffset	int64
-	status	int32
+	foffset	int64	(in)
+	status	int32	(out)
 	_pad2	int32
 }
 
@@ -323,42 +330,53 @@ nvrm_ioctl_sched_fifo_t {
 }
 
 nvrm_ioctl_create_vspace56_t {
-	cid		cid
-	par		NvHandle
-	handle		NvHandle
-	cls		int32
-	flags		int32
+	cid		cid	(in)
+	par		caf	(in)
+	handle		NvHandle	(in)
+	cls		int32	(in)
+	flags		int32	(in)
 	_pad1		int32
-	map_id		int64
-	limit		int64
-	status		int32
+	map_id		int64	(out)
+	limit		int64	(in)
+	status		int32	(out)
 	_pad2		int32
 # TODO fd_nvidia0 used?
-	target_fd	fd_nvidiactl
+	target_fd	fd_nvidiactl	(in)
 	_pad3		int32
 }
 
 nvrm_ioctl_create_t {
-	cid	cid
-	par	NvHandle
-	handle	NvHandle
-	cls	int32
+	cid	cid	(in)
+	par	caf	(in)
+	handle	NvHandle	(out)
+	cls	int32	(in)
 	ptr	ptr64[in, int32]
-	status	int32
+	status	int32	(out)
 	_pad	int32
 }
 
 nvrm_ioctl_create_context {
-	cid	const[0, int32]
-	par	const[0, int32]
-	handle	cid[opt]
+	cid	const[0, int32]	(in)
+	par	const[0, int32]	(in)
+	handle	cid	(out)
 	cls	const[0, int32]
-	ptr	ptr64[in, int32]
-	status	int32
+	ptr	const[0, int64]
+#ptr	ptr64[in, int32]
+	status	int32	(out)
 	_pad	int32
 }
 
-# more structs of unseed ioctls from nvrm_ioctl.h
+nvrm_ioctl_create_subcontext {
+	cid	cid	(in)
+	par	cid	(in)
+	handle	caf	(out)
+	cls	const[0, int32]
+	ptr	ptr64[in, int32]
+	status	int32	(out)
+	_pad	int32
+}
+
+# more structs of unseen ioctls from nvrm_ioctl.h
 
 nvrm_ioctl_create_ctx_t {
 	handle	NvHandle
@@ -447,7 +465,7 @@ nvrm_ioctl_config {
 nvrm_ioctl_unk52 {
 	ptr	buffer[inout]
 	unk08	int32
-	status	int32
+	status	int32	(out)
 }
 
 nvrm_ioctl_bind {
