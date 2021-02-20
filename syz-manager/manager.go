@@ -25,7 +25,6 @@ import (
 	"github.com/google/syzkaller/pkg/db"
 	"github.com/google/syzkaller/pkg/gce"
 	"github.com/google/syzkaller/pkg/hash"
-	"github.com/google/syzkaller/pkg/host"
 	"github.com/google/syzkaller/pkg/instance"
 	"github.com/google/syzkaller/pkg/log"
 	"github.com/google/syzkaller/pkg/mgrconfig"
@@ -766,12 +765,7 @@ func (mgr *Manager) saveCrash(crash *Crash) bool {
 const maxReproAttempts = 3
 
 func (mgr *Manager) needLocalRepro(crash *Crash) bool {
-	if !mgr.cfg.Reproduce || crash.Corrupted {
-		return false
-	}
-	if mgr.checkResult == nil || (mgr.checkResult.Features[host.FeatureLeak].Enabled &&
-		crash.Type != report.MemoryLeak) {
-		// Leak checking is very slow, don't bother reproducing other crashes.
+	if !mgr.cfg.Reproduce {
 		return false
 	}
 	sig := hash.Hash([]byte(crash.Title))
