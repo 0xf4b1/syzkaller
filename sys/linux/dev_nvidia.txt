@@ -1,18 +1,15 @@
-include <uapi/asm/ioctl.h>
-include <uapi/linux/fcntl.h>
-
-include <nv.h>
-
 resource fd_nvidiactl[fd]
 resource fd_nvidia0[fd]
 
 resource cid[int32]
+resource caf[int32]
+resource NvHandle[int32]: 0xbeef0000, 0xbeef0001, 0xbeef0002, 0xbeef0003, 0xbeef0004, 0xbeef0005, 0xbeef0006, 0xbeef0007, 0xbeef0008, 0xbeef0009, 0xbeef0010, 0xcaf00000, 0xcaf00001, 0xcaf00002, 0xcaf00003, 0xcaf00004, 0xcaf00005, 0xcaf00006, 0xcaf00007, 0xcaf00008, 0xcaf00009, 0xcaf00010
 
 openat$nvidiactl(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidiactl"]], flags flags[open_flags], mode const[0]) fd_nvidiactl
-openat$nvidia0(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia0"]], flags flags[open_flags], mode const[0]) fd_nvidia0
+syz_open_dev$nvidia(dev ptr[in, string["/dev/nvidia#"]], id intptr, flags flags[open_flags]) fd_nvidia0
 
-mmap$nvidiactl(addr vma, len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidiactl, offset const[0])
-mmap$nvidia0(addr vma, len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidia0, offset const[0])
+mmap$nvidiactl(addr const[0], len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidiactl, offset const[0])
+mmap$nvidia0(addr const[0], len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidia0, offset const[0])
 
 # known ioctls with definitions from kernel interface
 
@@ -20,36 +17,36 @@ mmap$nvidia0(addr vma, len len[addr], prot flags[mmap_prot], flags flags[mmap_fl
 
 # nvidiactl
 
-ioctl$NV_ESC_CHECK_VERSION_STR(fd fd_nvidiactl, cmd const[NV_ESC_CHECK_VERSION_STR], arg ptr[inout, nv_ioctl_rm_api_version_t])
-ioctl$NV_ESC_SYS_PARAMS(fd fd_nvidiactl, cmd const[NV_ESC_SYS_PARAMS], arg ptr[inout, nv_ioctl_sys_params_t])
-ioctl$NV_ESC_ENV_INFO(fd fd_nvidiactl, cmd const[NV_ESC_ENV_INFO], arg ptr[inout, nv_ioctl_env_info_t])
-ioctl$NV_ESC_CARD_INFO(fd fd_nvidiactl, cmd const[NV_ESC_CARD_INFO], arg ptr[inout, nv_ioctl_card_info_t])
+ioctl$NV_ESC_CHECK_VERSION_STR(fd fd_nvidiactl, cmd const[0xc04846d2], arg ptr[inout, nv_ioctl_rm_api_version_t])
+ioctl$NV_ESC_SYS_PARAMS(fd fd_nvidiactl, cmd const[0xc00846d6], arg ptr[in, nv_ioctl_sys_params_t])
+ioctl$NV_ESC_ENV_INFO(fd fd_nvidiactl, cmd const[0xc00446ca], arg ptr[out, nv_ioctl_env_info_t])
+ioctl$NV_ESC_CARD_INFO(fd fd_nvidiactl, cmd const[0xca0046c8], arg ptr[out, nv_ioctl_card_info_t])
 
 # nvidia0
 
-ioctl$NV_ESC_NUMA_INFO(fd fd_nvidia0, cmd const[NV_ESC_NUMA_INFO], arg ptr[inout, nv_ioctl_numa_info_t])
+ioctl$NV_ESC_NUMA_INFO(fd fd_nvidia0, cmd const[0xc22846d7], arg ptr[out, nv_ioctl_numa_info_t])
 
 # more ioctls from kernel interface not observed being used
 
 # nvidiactl
 
-ioctl$NV_ESC_STATUS_CODE(fd fd_nvidiactl, cmd const[NV_ESC_STATUS_CODE], arg ptr[inout, nv_ioctl_status_code_t])
-ioctl$NV_ESC_IOCTL_XFER_CMD(fd fd_nvidiactl, cmd const[NV_ESC_IOCTL_XFER_CMD], arg ptr[inout, nv_ioctl_xfer_t])
-ioctl$NV_ESC_ATTACH_GPUS_TO_FD(fd fd_nvidiactl, cmd const[NV_ESC_ATTACH_GPUS_TO_FD], arg ptr[inout, nv_attach_gpus_to_fd_t])
+ioctl$NV_ESC_STATUS_CODE(fd fd_nvidiactl, cmd const[0xc00a46d1], arg ptr[inout, nv_ioctl_status_code_t])
+ioctl$NV_ESC_IOCTL_XFER_CMD(fd fd_nvidiactl, cmd const[0xc01446d3], arg ptr[inout, nv_ioctl_xfer_t])
+ioctl$NV_ESC_ATTACH_GPUS_TO_FD(fd fd_nvidiactl, cmd const[0xc02846d4], arg ptr[inout, nv_attach_gpus_to_fd_t])
 
 # nvidia0
 
-ioctl$NV_ESC_ALLOC_OS_EVENT(fd fd_nvidia0, cmd const[NV_ESC_ALLOC_OS_EVENT], arg ptr[inout, nv_ioctl_alloc_os_event_t])
-ioctl$NV_ESC_FREE_OS_EVENT(fd fd_nvidia0, cmd const[NV_ESC_FREE_OS_EVENT], arg ptr[inout, nv_ioctl_free_os_event_t])
-ioctl$NV_ESC_QUERY_DEVICE_INTR(fd fd_nvidia0, cmd const[NV_ESC_QUERY_DEVICE_INTR], arg ptr[inout, nv_ioctl_query_device_intr_t])
-ioctl$NV_ESC_SET_NUMA_STATUS(fd fd_nvidia0, cmd const[NV_ESC_SET_NUMA_STATUS], arg ptr[inout, nv_ioctl_set_numa_status_t])
+ioctl$NV_ESC_ALLOC_OS_EVENT(fd fd_nvidia0, cmd const[0xc01446ce], arg ptr[inout, nv_ioctl_alloc_os_event_t])
+ioctl$NV_ESC_FREE_OS_EVENT(fd fd_nvidia0, cmd const[0xc01046cf], arg ptr[inout, nv_ioctl_free_os_event_t])
+ioctl$NV_ESC_QUERY_DEVICE_INTR(fd fd_nvidia0, cmd const[0xc00846d5], arg ptr[out, nv_ioctl_query_device_intr_t])
+ioctl$NV_ESC_SET_NUMA_STATUS(fd fd_nvidia0, cmd const[0xc00446d8], arg ptr[in, nv_ioctl_set_numa_status_t])
 
 # unknown ioctls, not defined in kernel interface, descriptions derived from valgrind-mmt
 
 # nvidiactl
 
 # 0x2a
-# ioctl$NVRM_IOCTL_CALL(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_t])
+ioctl$NVRM_IOCTL_CALL(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_t])
 # 0x29
 ioctl$NVRM_IOCTL_DESTROY(fd fd_nvidiactl, cmd const[0xc0104629], arg ptr[inout, nvrm_ioctl_destroy_t])
 # 0x54
@@ -459,5 +456,3 @@ nvrm_ioctl_bind {
 	handle	NvHandle
 	status	int32
 }
-
-handle = 0xbeef0000, 0xbeef0001, 0xbeef0002, 0xbeef0003, 0xbeef0004, 0xbeef0005, 0xbeef0006, 0xbeef0007, 0xbeef0008, 0xbeef0009, 0xbeef0010, 0xcaf00000, 0xcaf00001, 0xcaf00002, 0xcaf00003, 0xcaf00004, 0xcaf00005, 0xcaf00006, 0xcaf00007, 0xcaf00008, 0xcaf00009, 0xcaf00010
