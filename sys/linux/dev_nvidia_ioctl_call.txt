@@ -1,70 +1,92 @@
-ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0101(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_context_unk0101])
-ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_GET_CPU_INFO(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_context_get_cpu_info])
-ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0201(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_context_unk0201])
-ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0202(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_context_unk0202])
-ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0301(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_context_unk0301])
-ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_LIST_DEVICES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_context_list_devices])
-ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_ENABLE_DEVICE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_context_enable_device])
-ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_DISABLE_DEVICE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_context_disable_device])
-ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK021B(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_context_unk021b])
-ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK1001(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_context_unk1001])
-ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_GET_CLASSES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_device_get_classes])
-ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_GET_NUM_SUBDEVICES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_device_get_num_subdevices])
-ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_SET_PERSISTENCE_MODE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_device_set_persistence_mode])
-ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_GET_PERSISTENCE_MODE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_device_get_persistence_mode])
-ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK1102(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_device_unk1102])
-ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK1401(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_device_unk1401])
-ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK1701(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_device_unk1701])
-ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK170D(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_device_unk170d])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0101(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_unk0101])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_NAME(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_name])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0119(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_unk0119])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_BAR0(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_bar0])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_FIFO_ENGINES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_fifo_engines])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_FIFO_CLASSES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_fifo_classes])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_SET_COMPUTE_MODE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_set_compute_mode])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_COMPUTE_MODE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_compute_mode])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_GPC_MASK(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_gpc_mask])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_GPC_TP_MASK(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_gpc_tp_mask])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_GPU_ID(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_gpu_id])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0145(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_unk0145])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0146(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_unk0146])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_FIFO_JOINABLE_ENGINES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_fifo_joinable_engines])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_UUID(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_uuid])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0303(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_unk0303])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_TIME(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_time])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0512(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_unk0512])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0522(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_unk0522])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK1201(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_unk1201])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_FB_GET_PARAMS(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_fb_get_params])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_FB_GET_SURFACE_GEOMETRY(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_fb_get_surface_geometry])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_CHIPSET(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_chipset])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_BUS_ID(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_bus_id])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_BUS_GET_PARAMS(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_bus_get_params])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_BUS_INFO(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_bus_info])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_VM_INFO(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_get_vm_info])
-ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK200A(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_subdevice_unk200a])
-ioctl$NVRM_IOCTL_CALL_MTHD_FIFO_IB_OBJECT_INFO(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_fifo_ib_object_info])
-ioctl$NVRM_IOCTL_CALL_MTHD_FIFO_IB_OBJECT_INFO2(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_fifo_ib_object_info2])
-ioctl$NVRM_IOCTL_CALL_MTHD_FIFO_IB_OBJECT_INFO3(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_fifo_ib_object_info3])
-ioctl$NVRM_IOCTL_CALL_MTHD_FIFO_IB_OBJECT_INFO4(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_fifo_ib_object_info4])
-ioctl$NVRM_IOCTL_CALL_MTHD_FIFO_IB_ACTIVATE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_fifo_ib_activate])
-ioctl$NVRM_IOCTL_CALL_MTHD_UNK85B6_UNK0201(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_unk85b6_unk0201])
-ioctl$NVRM_IOCTL_CALL_MTHD_UNK85B6_UNK0202(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call_mthd_unk85b6_unk0202])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0101(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x101, ptr64[in, nvrm_mthd_context_unk0101]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0104(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x104, buffer[out]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_GET_CPU_INFO(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x102, ptr64[out, nvrm_mthd_context_get_cpu_info]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0201(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x201, ptr64[out, nvrm_mthd_context_unk0201]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0202(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x202, ptr64[inout, nvrm_mthd_context_unk0202]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0204(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x204, ptr64[out, int32]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_LIST_DEVICES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x214, ptr64[in, nvrm_mthd_context_list_devices]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_ENABLE_DEVICE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x215, ptr64[in, nvrm_mthd_context_enable_device]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_DISABLE_DEVICE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x216, ptr64[in, nvrm_mthd_context_disable_device]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK021B(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x21b, ptr64[in, nvrm_mthd_context_unk021b]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0301(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x301, ptr64[out, nvrm_mthd_context_unk0301]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK0d01(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0xd01, ptr64[in, nvrm_mthd_context_unk0d01]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_CONTEXT_UNK1001(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x1001, ptr64[in, nvrm_mthd_context_unk1001]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_GET_CLASSES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x800201, ptr64[in, nvrm_mthd_device_get_classes]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_GET_NUM_SUBDEVICES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x800280, ptr64[out, nvrm_mthd_device_get_num_subdevices]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_SET_PERSISTENCE_MODE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x800287, ptr64[in, nvrm_mthd_device_set_persistence_mode]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_GET_PERSISTENCE_MODE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x800288, ptr64[in, nvrm_mthd_device_get_persistence_mode]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK0289(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x800289, ptr64[out, int32]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK1102(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x801102, ptr64[in, nvrm_mthd_device_unk1102]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK1104(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x801104, ptr64[in, array[int64, 2]]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK1301(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x801301, ptr64[in, nvrm_mthd_device_unk1701]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK1401(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x801401, ptr64[in, nvrm_mthd_device_unk1401]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK1701(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x801701, ptr64[in, nvrm_mthd_device_unk1701]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK1707(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x801707, ptr64[inout, array[int32, 3]]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK170D(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x80170d, ptr64[in, nvrm_mthd_device_unk170d]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK1806(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x801806, buffer[out]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_DEVICE_UNK180D(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x80180d, ptr64[inout, array[int32, 3]]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0101(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800101, ptr64[in, nvrm_mthd_subdevice_unk0101]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_NAME(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800110, ptr64[out, nvrm_mthd_subdevice_get_name]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0119(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800119, ptr64[in, nvrm_mthd_subdevice_unk0119]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_BAR0(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800122, ptr64[in, nvrm_mthd_subdevice_bar0]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_FIFO_ENGINES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800123, ptr64[in, nvrm_mthd_subdevice_get_fifo_engines]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_FIFO_CLASSES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800124, ptr64[in, nvrm_mthd_subdevice_get_fifo_classes]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK012F(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x2080012f, buffer[inout]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_SET_COMPUTE_MODE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800130, ptr64[in, nvrm_mthd_subdevice_set_compute_mode]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_COMPUTE_MODE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800131, ptr64[in, nvrm_mthd_subdevice_get_compute_mode]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_GPC_MASK(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800137, ptr64[in, nvrm_mthd_subdevice_get_gpc_mask]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_GPC_TP_MASK(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800138, ptr64[in, nvrm_mthd_subdevice_get_gpc_tp_mask]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_GPU_ID(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800142, ptr64[out, nvrm_mthd_subdevice_get_gpu_id]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0145(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800145, void]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0146(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800146, void]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_FIFO_JOINABLE_ENGINES(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800147, ptr64[in, nvrm_mthd_subdevice_get_fifo_joinable_engines]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_UUID(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x2080014a, ptr64[in, nvrm_mthd_subdevice_get_uuid]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0159(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800159, buffer[inout]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0170(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800170, buffer[out]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0303(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800303, ptr64[in, nvrm_mthd_subdevice_unk0303]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_TIME(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800403, ptr64[in, nvrm_mthd_subdevice_get_time]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0512(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800512, ptr64[in, nvrm_mthd_subdevice_unk0512]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK0522(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20800522, ptr64[in, nvrm_mthd_subdevice_unk0522]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK1201(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801201, ptr64[in, nvrm_mthd_subdevice_unk1201]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK1206(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801206, buffer[inout]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK1208(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801208, ptr64[in, nvrm_mthd_subdevice_unk1208]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_FB_GET_PARAMS(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801301, ptr64[in, nvrm_mthd_subdevice_fb_get_params]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK1305(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801305, ptr64[in, array[int32, 6]]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK1315(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801315, ptr64[out, array[int32, 6]]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK1320(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801320, buffer[out]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_FB_GET_SURFACE_GEOMETRY(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801324, ptr64[in, nvrm_mthd_subdevice_fb_get_surface_geometry]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_CHIPSET(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801701, ptr64[out, nvrm_mthd_subdevice_get_chipset]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_BUS_ID(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801801, ptr64[out, nvrm_mthd_subdevice_get_bus_id]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_BUS_GET_PARAMS(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801802, ptr64[in, nvrm_mthd_subdevice_bus_get_params]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_BUS_INFO(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801803, ptr64[in, nvrm_mthd_subdevice_get_bus_info]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_GET_VM_INFO(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20801806, ptr64[in, nvrm_mthd_subdevice_get_vm_info]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK200A(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x2080200a, ptr64[in, nvrm_mthd_subdevice_unk200a]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK2a02(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20802a02, ptr64[inout, array[int32, 2]]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_SUBDEVICE_UNK2a03(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x20802a03, ptr64[inout, int64]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_UNK9096_UNK0101(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x90960101, buffer[in]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_UNK9096_UNK0103(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x90960103, buffer[in]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_FIFO_IB_OBJECT_INFO(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x906f0101, ptr64[in, nvrm_mthd_fifo_ib_object_info]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_FIFO_IB_OBJECT_INFO2(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0xa06f0101, ptr64[in, nvrm_mthd_fifo_ib_object_info]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_FIFO_IB_OBJECT_INFO3(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0xb06f0101, ptr64[in, nvrm_mthd_fifo_ib_object_info]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_FIFO_IB_OBJECT_INFO4(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0xc06f0101, ptr64[in, nvrm_mthd_fifo_ib_object_info]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_FIFO_IB_ACTIVATE(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0xa06f0103, ptr64[in, nvrm_mthd_fifo_ib_activate]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_UNKA06F_UNK0104(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0xa06f0104, ptr64[in, int32]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_UNK85B6_UNK0201(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x85b60201, ptr64[in, nvrm_mthd_unk85b6_unk0201]]])
+ioctl$NVRM_IOCTL_CALL_MTHD_UNK85B6_UNK0202(fd fd_nvidiactl, cmd const[0xc020462a], arg ptr[inout, nvrm_ioctl_call[0x85b60202, ptr64[in, nvrm_mthd_unk85b6_unk0202]]])
+
+type nvrm_ioctl_call[MTHD, PTR] {
+	cid	cid	(in)
+	handle	cid	(in)
+	mthd	const[MTHD, int32]
+	_pad	int32
+	ptr	PTR
+	size	bytesize[ptr, int32]
+	status	int32	(out)
+}
 
 nvrm_mthd_key_value {
 	key	int32
 	value	int32
-}
-
-nvrm_ioctl_call_mthd_context_unk0101 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x101, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_context_unk0101]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_context_unk0101 {
@@ -76,16 +98,6 @@ nvrm_mthd_context_unk0101 {
 	unk18_ptr	buffer[inout]
 	unk20		int32
 	unk24		int32
-}
-
-nvrm_ioctl_call_mthd_context_get_cpu_info {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x102, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_context_get_cpu_info]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_context_get_cpu_info {
@@ -102,79 +114,29 @@ nvrm_mthd_context_get_cpu_info {
 	cpus		int32
 }
 
-nvrm_ioctl_call_mthd_context_unk0201 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x201, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_context_unk0201]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_context_unk0201 {
 	gpu_id	array[int32, 32]
 }
 
-nvrm_ioctl_call_mthd_context_unk0202 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x202, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_context_unk0202]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_context_unk0202 {
-	gpu_id		int32
-	unk04		int32
+	gpu_id		int32	(in)
+	unk04		int32	(out)
 	unk08		int32
 	unk0c		int32
 	unk10		int32
 	unk14		int32
 	unk18		int32
-	unk1c_gpu_id	int32
+	unk1c_gpu_id	int32	(out)
 	unk20		int32
-	unk24		int32
-}
-
-nvrm_ioctl_call_mthd_context_unk0301 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x301, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_context_unk0301]
-	size	bytesize[ptr, int32]
-	status	int32
+	unk24		int32	(out)
 }
 
 nvrm_mthd_context_unk0301 {
 	unk00	array[int32, 12]
 }
 
-nvrm_ioctl_call_mthd_context_list_devices {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x214, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_context_list_devices]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_context_list_devices {
 	gpu_id	array[int32, 32]
-}
-
-nvrm_ioctl_call_mthd_context_enable_device {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x215, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_context_enable_device]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_context_enable_device {
@@ -182,29 +144,9 @@ nvrm_mthd_context_enable_device {
 	unk04	array[int32, 32]
 }
 
-nvrm_ioctl_call_mthd_context_disable_device {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x216, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_context_disable_device]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_context_disable_device {
 	gpu_id	int32
 	unk04	array[int32, 31]
-}
-
-nvrm_ioctl_call_mthd_context_unk021b {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x21b, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_context_unk021b]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_context_unk021b {
@@ -213,30 +155,16 @@ nvrm_mthd_context_unk021b {
 	unk08	int32
 }
 
-nvrm_ioctl_call_mthd_context_unk1001 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x1001, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_context_unk1001]
-	size	bytesize[ptr, int32]
-	status	int32
+nvrm_mthd_context_unk0d01 {
+	handle	cid	(in)
+	unk04	int32	(in)
+	unk08	int32	(out)
 }
 
 nvrm_mthd_context_unk1001 {
 	handle	NvHandle
 	unk04	int32
 	unk08	int32
-}
-
-nvrm_ioctl_call_mthd_device_get_classes {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x800201, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_device_get_classes]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_device_get_classes {
@@ -246,56 +174,16 @@ nvrm_mthd_device_get_classes {
 	ptr	buffer[inout]
 }
 
-nvrm_ioctl_call_mthd_device_get_num_subdevices {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x800280, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_device_get_num_subdevices]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_device_get_num_subdevices {
 	mode	int32
-}
-
-nvrm_ioctl_call_mthd_device_set_persistence_mode {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x800287, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_device_set_persistence_mode]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_device_set_persistence_mode {
 	mode	int32
 }
 
-nvrm_ioctl_call_mthd_device_get_persistence_mode {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x800288, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_device_get_persistence_mode]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_device_get_persistence_mode {
 	mode	int32
-}
-
-nvrm_ioctl_call_mthd_device_unk1102 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x801102, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_device_unk1102]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_device_unk1102 {
@@ -305,16 +193,6 @@ nvrm_mthd_device_unk1102 {
 	ptr	buffer[inout]
 }
 
-nvrm_ioctl_call_mthd_device_unk1401 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x801401, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_device_unk1401]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_device_unk1401 {
 	cnt	int32
 	unk04	int32
@@ -322,31 +200,11 @@ nvrm_mthd_device_unk1401 {
 	ptr	buffer[inout]
 }
 
-nvrm_ioctl_call_mthd_device_unk1701 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x801701, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_device_unk1701]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_device_unk1701 {
 	cnt	int32
 	unk04	int32
 # unknown ptr
 	ptr	buffer[inout]
-}
-
-nvrm_ioctl_call_mthd_device_unk170d {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x80170d, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_device_unk170d]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_device_unk170d {
@@ -357,30 +215,10 @@ nvrm_mthd_device_unk170d {
 	ptr2	buffer[inout]
 }
 
-nvrm_ioctl_call_mthd_subdevice_unk0101 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800101, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_unk0101]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_unk0101 {
 	cnt	int32
 	_pad	int32
 	ptr	buffer[inout]
-}
-
-nvrm_ioctl_call_mthd_subdevice_get_name {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800110, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_name]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_subdevice_get_name {
@@ -388,39 +226,8 @@ nvrm_mthd_subdevice_get_name {
 	name	array[int8, 0x80]
 }
 
-nvrm_ioctl_call_mthd_subdevice_unk0119 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800119, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_unk0119]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_unk0119 {
 	unk00	int32
-}
-
-#nvrm_mthd_subdevice_bar0_op {
-#    dir int32
-#    unk04 int32
-#    unk08 int32
-#    mmio int32
-#    unk10 int32
-#    value int32
-#    unk18 int32
-#    mask int32
-#}
-
-nvrm_ioctl_call_mthd_subdevice_bar0 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800122, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_bar0]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_subdevice_bar0 {
@@ -434,31 +241,11 @@ nvrm_mthd_subdevice_bar0 {
 	ptr	buffer[inout]
 }
 
-nvrm_ioctl_call_mthd_subdevice_get_fifo_engines {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800123, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_fifo_engines]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_get_fifo_engines {
 	eng	int32
 	cnt	int32
 # unknown ptr
 	ptr	buffer[inout]
-}
-
-nvrm_ioctl_call_mthd_subdevice_get_fifo_classes {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800124, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_fifo_classes]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_subdevice_get_fifo_classes {
@@ -468,57 +255,17 @@ nvrm_mthd_subdevice_get_fifo_classes {
 	ptr	buffer[inout]
 }
 
-nvrm_ioctl_call_mthd_subdevice_set_compute_mode {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800130, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_set_compute_mode]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_set_compute_mode {
 	mode	int32
 	unk04	int32
-}
-
-nvrm_ioctl_call_mthd_subdevice_get_compute_mode {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800131, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_compute_mode]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_subdevice_get_compute_mode {
 	mode	int32
 }
 
-nvrm_ioctl_call_mthd_subdevice_get_gpc_mask {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800137, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_gpc_mask]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_get_gpc_mask {
 	gpc_mask	int32
-}
-
-nvrm_ioctl_call_mthd_subdevice_get_gpc_tp_mask {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800138, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_gpc_tp_mask]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_subdevice_get_gpc_tp_mask {
@@ -526,65 +273,15 @@ nvrm_mthd_subdevice_get_gpc_tp_mask {
 	tp_mask	int32
 }
 
-nvrm_ioctl_call_mthd_subdevice_get_gpu_id {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800142, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_gpu_id]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_get_gpu_id {
 	gpu_id	int32
 }
 
-nvrm_ioctl_call_mthd_subdevice_unk0145 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800145, int32]
-	_pad	int32
-	ptr	void
-	size	int32
-	status	int32
-}
-
-nvrm_ioctl_call_mthd_subdevice_unk0146 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800146, int32]
-	_pad	int32
-	ptr	void
-	size	int32
-	status	int32
-}
-
-nvrm_ioctl_call_mthd_subdevice_get_fifo_joinable_engines {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800147, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_fifo_joinable_engines]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_get_fifo_joinable_engines {
-	eng	int32
-	cls	int32
-	cnt	int32
-	res	array[int32, 0x20]
-}
-
-nvrm_ioctl_call_mthd_subdevice_get_uuid {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x2080014a, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_uuid]
-	size	bytesize[ptr, int32]
-	status	int32
+	eng	int32	(in)
+	cls	int32	(in)
+	cnt	int32	(out)
+	res	array[int32, 0x20]	(out)
 }
 
 nvrm_mthd_subdevice_get_uuid {
@@ -594,42 +291,12 @@ nvrm_mthd_subdevice_get_uuid {
 	uuid		array[int8, 0x100]
 }
 
-nvrm_ioctl_call_mthd_subdevice_unk0303 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800303, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_unk0303]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_unk0303 {
 	handle_unk003e	int32
 }
 
-nvrm_ioctl_call_mthd_subdevice_get_time {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800403, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_time]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_get_time {
 	time	int64
-}
-
-nvrm_ioctl_call_mthd_subdevice_unk0512 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800512, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_unk0512]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_subdevice_unk0512 {
@@ -643,16 +310,6 @@ nvrm_mthd_subdevice_unk0512 {
 	ptr	buffer[inout]
 }
 
-nvrm_ioctl_call_mthd_subdevice_unk0522 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20800522, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_unk0522]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_unk0522 {
 	unk00	int32
 	unk04	int32
@@ -664,46 +321,25 @@ nvrm_mthd_subdevice_unk0522 {
 	ptr	buffer[inout]
 }
 
-nvrm_ioctl_call_mthd_subdevice_unk1201 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20801201, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_unk1201]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_unk1201 {
 	cnt	int32
 	_pad	int32
 	ptr	ptr64[out, nvrm_mthd_key_value]
 }
 
-nvrm_ioctl_call_mthd_subdevice_fb_get_params {
+nvrm_mthd_subdevice_unk1208 {
 	cid	cid
 	handle	NvHandle
-	mthd	const[0x20801301, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_fb_get_params]
-	size	bytesize[ptr, int32]
-	status	int32
+	unk08	int32
+	unk12	int32
+	unk16	int32
+	unk20	int32
 }
 
 nvrm_mthd_subdevice_fb_get_params {
 	cnt	int32
 	unk04	int32
 	ptr	ptr64[out, nvrm_mthd_key_value]
-}
-
-nvrm_ioctl_call_mthd_subdevice_fb_get_surface_geometry {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20801324, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_fb_get_surface_geometry]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_subdevice_fb_get_surface_geometry {
@@ -715,37 +351,10 @@ nvrm_mthd_subdevice_fb_get_surface_geometry {
 	unk14	int32
 }
 
-nvrm_ioctl_call_mthd_subdevice_get_chipset {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20801701, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_chipset]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_get_chipset {
 	major		int32
 	minor		int32
 	stepping	int32
-}
-
-#nvrm_mthd_subdevice_get_chipset16 {
-#    major int32
-#    minor int32
-#    stepping int32
-#    unk0c int32
-#}
-
-nvrm_ioctl_call_mthd_subdevice_get_bus_id {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20801801, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_bus_id]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_subdevice_get_bus_id {
@@ -755,30 +364,10 @@ nvrm_mthd_subdevice_get_bus_id {
 	real_product_id	int32
 }
 
-nvrm_ioctl_call_mthd_subdevice_bus_get_params {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20801802, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_bus_get_params]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_bus_get_params {
 	cnt	int32
 	_pad	int32
 	ptr	ptr64[out, nvrm_mthd_key_value]
-}
-
-nvrm_ioctl_call_mthd_subdevice_get_bus_info {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20801803, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_bus_info]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_subdevice_get_bus_info {
@@ -806,30 +395,10 @@ nvrm_mthd_subdevice_get_bus_info {
 	unk80		int64
 }
 
-nvrm_ioctl_call_mthd_subdevice_get_vm_info {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x20801806, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_get_vm_info]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_subdevice_get_vm_info {
 	total_addr_bits	int32
 	pde_addr_bits	int32
 	unk00		array[int32, 40]
-}
-
-nvrm_ioctl_call_mthd_subdevice_unk200a {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x2080200a, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_subdevice_unk200a]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_subdevice_unk200a {
@@ -837,90 +406,20 @@ nvrm_mthd_subdevice_unk200a {
 	unk04	int32
 }
 
-nvrm_ioctl_call_mthd_fifo_ib_object_info {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x906f0101, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_fifo_ib_object_info]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
-nvrm_ioctl_call_mthd_fifo_ib_object_info2 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0xa06f0101, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_fifo_ib_object_info]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
-nvrm_ioctl_call_mthd_fifo_ib_object_info3 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0xb06f0101, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_fifo_ib_object_info]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
-nvrm_ioctl_call_mthd_fifo_ib_object_info4 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0xc06f0101, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_fifo_ib_object_info]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_fifo_ib_object_info {
-	handle	NvHandle
-	name	int32
-	hwcls	int32
-	eng	int32
-}
-
-nvrm_ioctl_call_mthd_fifo_ib_activate {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0xa06f0103, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_fifo_ib_activate]
-	size	bytesize[ptr, int32]
-	status	int32
+	handle	NvHandle	(in)
+	name	int32	(out)
+	hwcls	int32	(out)
+	eng	int32	(out)
 }
 
 nvrm_mthd_fifo_ib_activate {
 	unk00	int8
 }
 
-nvrm_ioctl_call_mthd_unk85b6_unk0201 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x85b60201, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_unk85b6_unk0201]
-	size	bytesize[ptr, int32]
-	status	int32
-}
-
 nvrm_mthd_unk85b6_unk0201 {
 	unk00	int32
 	unk04	int32
-}
-
-nvrm_ioctl_call_mthd_unk85b6_unk0202 {
-	cid	cid
-	handle	NvHandle
-	mthd	const[0x85b60202, int32]
-	_pad	int32
-	ptr	ptr64[in, nvrm_mthd_unk85b6_unk0202]
-	size	bytesize[ptr, int32]
-	status	int32
 }
 
 nvrm_mthd_unk85b6_unk0202 {
