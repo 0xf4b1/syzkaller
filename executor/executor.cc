@@ -340,7 +340,7 @@ static void setup_features(char** enable, int n);
 #elif GOOS_akaros
 #include "executor_akaros.h"
 #elif GOOS_freebsd || GOOS_netbsd || GOOS_openbsd
-#include "executor_bsd.h"
+#include "executor_bsd_bp.h"
 #elif GOOS_windows
 #include "executor_windows.h"
 #elif GOOS_test
