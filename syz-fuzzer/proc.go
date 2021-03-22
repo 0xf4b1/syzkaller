@@ -33,6 +33,7 @@ type Proc struct {
 	execOptsCover     *ipc.ExecOpts
 	execOptsComps     *ipc.ExecOpts
 	execOptsNoCollide *ipc.ExecOpts
+	triage            bool
 }
 
 func newProc(fuzzer *Fuzzer, pid int) (*Proc, error) {
@@ -56,6 +57,7 @@ func newProc(fuzzer *Fuzzer, pid int) (*Proc, error) {
 		execOptsCover:     &execOptsCover,
 		execOptsComps:     &execOptsComps,
 		execOptsNoCollide: &execOptsNoCollide,
+		triage:            false,
 	}
 	return proc, nil
 }
@@ -74,13 +76,22 @@ func (proc *Proc) loop() {
 			case *WorkTriage:
 				proc.triageInput(item)
 			case *WorkCandidate:
+				if (proc.triage) {
+					proc.fullCover(false)
+				}
 				proc.execute(proc.execOpts, item.p, item.flags, StatCandidate)
 			case *WorkSmash:
+				if (proc.triage) {
+					proc.fullCover(false)
+				}
 				proc.smashInput(item)
 			default:
 				log.Fatalf("unknown work type: %#v", item)
 			}
 			continue
+		}
+		if (proc.triage) {
+			proc.fullCover(false)
 		}
 
 		ct := proc.fuzzer.choiceTable
@@ -110,6 +121,7 @@ func (proc *Proc) fullCover(enable bool) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	proc.triage = enable
 }
 
 func (proc *Proc) triageInput(item *WorkTriage) {
@@ -121,7 +133,9 @@ func (proc *Proc) triageInput(item *WorkTriage) {
 	if newSignal.Empty() {
 		return
 	}
-	proc.fullCover(true)
+	if (!proc.triage) {
+		proc.fullCover(true)
+	}
 	callName := ".extra"
 	logCallName := "extra"
 	if item.call != -1 {
@@ -143,7 +157,6 @@ func (proc *Proc) triageInput(item *WorkTriage) {
 			// The call was not executed or failed.
 			notexecuted++
 			if notexecuted > signalRuns/2+1 {
-				proc.fullCover(false)
 				return // if happens too often, give up
 			}
 			continue
@@ -158,7 +171,6 @@ func (proc *Proc) triageInput(item *WorkTriage) {
 		// Without !minimized check manager starts losing some considerable amount
 		// of coverage after each restart. Mechanics of this are not completely clear.
 		if newSignal.Empty() && item.flags&ProgMinimized == 0 {
-			proc.fullCover(false)
 			return
 		}
 		inputCover.Merge(thisCover)
@@ -197,7 +209,6 @@ func (proc *Proc) triageInput(item *WorkTriage) {
 	if item.flags&ProgSmashed == 0 {
 		proc.fuzzer.workQueue.enqueue(&WorkSmash{item.p, item.call})
 	}
-	proc.fullCover(false)
 }
 
 func reexecutionSuccess(info *ipc.ProgInfo, oldInfo *ipc.CallInfo, call int) bool {
