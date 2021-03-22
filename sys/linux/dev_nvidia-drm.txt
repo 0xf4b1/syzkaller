@@ -1,5 +1,8 @@
-# ioctl numbers have DRM_COMMAND_BASE 0x40 offset
+read$DRM_NVIDIA_READ(fd fd_dri, buf buffer[out], count len[buf])
+mmap$DRM_NVIDIA_MMAP(addr const[0], len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_dri, offset const[0])
+close$DRM_NVIDIA_CLOSE(fd fd_dri)
 
+# ioctl numbers have DRM_COMMAND_BASE 0x40 offset
 ioctl$DRM_NVIDIA_GET_CRTC_CRC32(fd fd_dri, cmd const[0x40], arg ptr[inout, drm_nvidia_get_crtc_crc32_params])
 ioctl$DRM_NVIDIA_GEM_IMPORT_NVKMS_MEMORY(fd fd_dri, cmd const[0x41], arg ptr[inout, drm_nvidia_gem_import_nvkms_memory_params])
 ioctl$DRM_NVIDIA_GEM_IMPORT_USERSPACE_MEMORY(fd fd_dri, cmd const[0x42], arg ptr[inout, drm_nvidia_gem_import_userspace_memory_params])
@@ -20,14 +23,14 @@ drm_nvidia_gem_import_nvkms_memory_params {
 # unknown ptr
 	nvkms_params_ptr	buffer[in]
 	nvkms_params_size	bytesize[nvkms_params_ptr, int64]	(in)
-	handle			int32	(out)
+	handle			drm_gem_handle	(out)
 	__pad			int32
 }
 
 drm_nvidia_gem_import_userspace_memory_params {
 	size	bytesize[address, int64]	(in)
 	address	buffer[in]	(in)
-	handle	int32	(out)
+	handle	drm_gem_handle	(out)
 }
 
 drm_nvidia_get_dev_info_params {
@@ -36,7 +39,7 @@ drm_nvidia_get_dev_info_params {
 }
 
 drm_nvidia_fence_context_create_params {
-	handle				int32	(out)
+	handle				drm_gem_handle	(out)
 	index				int32	(in)
 	size				int64	(in)
 # unknown ptr
@@ -47,8 +50,8 @@ drm_nvidia_fence_context_create_params {
 }
 
 drm_nvidia_gem_fence_attach_params {
-	handle			int32	(in)
-	fence_context_handle	int32	(in)
+	handle			drm_gem_handle	(in)
+	fence_context_handle	drm_gem_handle	(in)
 	sem_thresh		int32	(in)
 }
 
@@ -58,7 +61,7 @@ drm_nvidia_get_client_capability_params {
 }
 
 drm_nvidia_gem_export_nvkms_memory_params {
-	handle			int32	(in)
+	handle			drm_gem_handle	(in)
 	__pad			int32
 # unknown ptr
 	nvkms_params_ptr	buffer[in]
