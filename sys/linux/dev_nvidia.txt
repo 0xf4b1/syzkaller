@@ -6,7 +6,10 @@ resource caf[int32]
 resource NvHandle[int32]: 0xbeef0000, 0xbeef0001, 0xbeef0002, 0xbeef0003, 0xbeef0004, 0xbeef0005, 0xbeef0006, 0xbeef0007, 0xbeef0008, 0xbeef0009, 0xbeef0010, 0xcaf00000, 0xcaf00001, 0xcaf00002, 0xcaf00003, 0xcaf00004, 0xcaf00005, 0xcaf00006, 0xcaf00007, 0xcaf00008, 0xcaf00009, 0xcaf00010
 
 openat$nvidiactl(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidiactl"]], flags flags[open_flags], mode const[0]) fd_nvidiactl
+close$nvidiactl(fd fd_nvidiactl)
+
 syz_open_dev$nvidia(dev ptr[in, string["/dev/nvidia#"]], id intptr, flags flags[open_flags]) fd_nvidia0
+close$nvidia(fd fd_nvidia0)
 
 mmap$nvidiactl(addr const[0], len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidiactl, offset const[0])
 mmap$nvidia0(addr const[0], len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidia0, offset const[0])
