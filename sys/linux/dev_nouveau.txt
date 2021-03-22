@@ -1,0 +1,126 @@
+read$DRM_READ(fd fd_dri, buf buffer[out], count len[buf])
+mmap$DRM_MMAP(addr const[0], len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_dri, offset const[0])
+close$DRM_CLOSE(fd fd_dri)
+
+# ioctl numbers have DRM_COMMAND_BASE 0x40 offset
+ioctl$DRM_IOCTL_NOUVEAU_GETPARAM(fd fd_dri, cmd const[0x40], arg ptr[inout, drm_nouveau_param])
+ioctl$DRM_IOCTL_NOUVEAU_SETPARAM(fd fd_dri, cmd const[0x41], arg ptr[inout, drm_nouveau_param])
+ioctl$DRM_IOCTL_NOUVEAU_CHANNEL_ALLOC(fd fd_dri, cmd const[0x42], arg ptr[inout, drm_nouveau_channel_alloc])
+ioctl$DRM_IOCTL_NOUVEAU_CHANNEL_FREE(fd fd_dri, cmd const[0x43], arg ptr[in, drm_nouveau_channel_free])
+ioctl$DRM_IOCTL_NOUVEAU_GROBJ_ALLOC(fd fd_dri, cmd const[0x44], arg ptr[inout, drm_nouveau_grobj_alloc])
+ioctl$DRM_IOCTL_NOUVEAU_NOTIFIEROBJ_ALLOC(fd fd_dri, cmd const[0x45], arg ptr[inout, drm_nouveau_notifierobj_alloc])
+ioctl$DRM_IOCTL_NOUVEAU_GPUOBJ_FREE(fd fd_dri, cmd const[0x46], arg ptr[in, drm_nouveau_gpuobj_free])
+ioctl$DRM_IOCTL_NOUVEAU_SVM_INIT(fd fd_dri, cmd const[0x48], arg ptr[inout, drm_nouveau_svm_init])
+ioctl$DRM_IOCTL_NOUVEAU_SVM_BIND(fd fd_dri, cmd const[0x49], arg ptr[inout, drm_nouveau_svm_bind])
+ioctl$DRM_IOCTL_NOUVEAU_GEM_NEW(fd fd_dri, cmd const[0x80], arg ptr[inout, drm_nouveau_gem_new])
+ioctl$DRM_IOCTL_NOUVEAU_GEM_PUSHBUF(fd fd_dri, cmd const[0x81], arg ptr[inout, drm_nouveau_gem_pushbuf])
+ioctl$DRM_IOCTL_NOUVEAU_GEM_CPU_PREP(fd fd_dri, cmd const[0x82], arg ptr[in, drm_nouveau_gem_cpu_prep])
+ioctl$DRM_IOCTL_NOUVEAU_GEM_CPU_FINI(fd fd_dri, cmd const[0x83], arg ptr[in, drm_nouveau_gem_cpu_fini])
+ioctl$DRM_IOCTL_NOUVEAU_GEM_INFO(fd fd_dri, cmd const[0x84], arg ptr[inout, drm_nouveau_gem_info])
+
+drm_nouveau_param {
+	param	int64
+	value	int64
+}
+
+drm_nouveau_channel_alloc_substructure {
+    handle drm_gem_handle (out)
+    grclass int32 (out)
+}
+
+drm_nouveau_channel_alloc {
+    fb_ctxdma_handle drm_gem_handle (in)
+    tt_ctxdma_handle drm_gem_handle (in)
+    channel int32 (out)
+    pushbuf_domains int32 (out)
+    notifier_handle drm_gem_handle (out)
+    subchan array[drm_nouveau_channel_alloc_substructure, 8] (out)
+    nr_subchan int32 (out)
+}
+
+drm_nouveau_channel_free {
+    channel int32 (in)
+}
+
+drm_nouveau_grobj_alloc {
+    channel int32 (in)
+    handle drm_gem_handle (in)
+    class int32
+}
+
+drm_nouveau_notifierobj_alloc {
+    channel int32 (in)
+    handle drm_gem_handle (in)
+    size int32
+    offset int32
+}
+
+drm_nouveau_gpuobj_free {
+    channel int32 (in)
+    handle int32 (in)
+}
+
+drm_nouveau_svm_init {
+    unmanaged_addr int64
+    unmanaged_size int64
+}
+
+drm_nouveau_svm_bind {
+    header int64
+    va_start int64
+    va_end int64
+    npages int64
+    stride int64
+    result int64
+    reserved0 int64
+    reserved1 int64
+}
+
+drm_nouveau_gem_new_substruct {
+    handle drm_gem_handle (out)
+    domain int32 (in)
+    size int64 (in)
+    offset int64
+    map_handle int64
+    tile_mode int32 (in)
+    tile_flags int32 (in)
+}
+
+drm_nouveau_gem_new {
+    info drm_nouveau_gem_new_substruct
+    channel_hint int32
+    align int32 (in)
+}
+
+drm_nouveau_gem_pushbuf {
+	channel int32
+	nr_buffers int32
+	buffers int64
+	nr_relocs int32
+	nr_push int32
+	relocs int64
+	push int64
+	suffix0 int32
+	suffix1 int32
+	vram_available int64
+	gart_available int64
+}
+
+drm_nouveau_gem_cpu_prep {
+    handle drm_gem_handle (in)
+    flags int32 (in)
+}
+
+drm_nouveau_gem_cpu_fini {
+    handle drm_gem_handle (in)
+}
+
+drm_nouveau_gem_info {
+	handle drm_gem_handle (in)
+	domain int32 (out)
+	size int64 (out)
+	offset int64 (out)
+	map_handle int64 (out)
+	tile_mode int32 (out)
+	tile_flags int32 (out)
+}
