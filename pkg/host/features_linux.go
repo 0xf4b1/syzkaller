@@ -21,7 +21,7 @@ func init() {
 	checkFeature[FeatureSandboxSetuid] = unconditionallyEnabled
 	checkFeature[FeatureSandboxNamespace] = checkSandboxNamespace
 	checkFeature[FeatureSandboxAndroid] = checkSandboxAndroid
-	checkFeature[FeatureFault] = checkFault
+	// checkFeature[FeatureFault] = checkFault
 	checkFeature[FeatureLeak] = checkLeak
 	checkFeature[FeatureNetInjection] = checkNetInjection
 	checkFeature[FeatureNetDevices] = unconditionallyEnabled
