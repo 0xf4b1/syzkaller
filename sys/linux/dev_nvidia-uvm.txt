@@ -1,11 +1,18 @@
 resource fd_nvidia_uvm[fd]
-resource fd_nvidia_uvm_tools[fd]
-
 openat$nvidia_uvm(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia-uvm"]], flags flags[open_flags], mode const[0]) fd_nvidia_uvm
-openat$nvidia_uvm_tools(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia-uvm-tools"]], flags flags[open_flags], mode const[0]) fd_nvidia_uvm_tools
-
+close$nvidia_uvm(fd fd_nvidia_uvm)
 mmap$nvidia_uvm(addr vma, len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidia_uvm, offset const[0])
+
+resource fd_nvidia_uvm_tools[fd]
+openat$nvidia_uvm_tools(fd const[AT_FDCWD], file ptr[in, string["/dev/nvidia-uvm-tools"]], flags flags[open_flags], mode const[0]) fd_nvidia_uvm_tools
+close$nvidia_uvm_tools(fd fd_nvidia_uvm_tools)
 mmap$nvidia_uvm_tools(addr vma, len len[addr], prot flags[mmap_prot], flags flags[mmap_flags], fd fd_nvidia_uvm_tools, offset const[0])
+
+ioctl$UVM_INITIALIZE(fd fd_nvidia_uvm, cmd const[UVM_INITIALIZE], arg ptr[inout, UVM_INITIALIZE_PARAMS])
+ioctl$UVM_DEINITIALIZE(fd fd_nvidia_uvm, cmd const[UVM_DEINITIALIZE], arg ptr[in, void])
+
+ioctl$UVM_INITIALIZE_TOOLS(fd fd_nvidia_uvm_tools, cmd const[UVM_INITIALIZE], arg ptr[inout, UVM_INITIALIZE_PARAMS])
+ioctl$UVM_DEINITIALIZE_TOOLS(fd fd_nvidia_uvm_tools, cmd const[UVM_DEINITIALIZE], arg ptr[in, void])
 
 ioctl$UVM_RESERVE_VA(fd fd_nvidia_uvm, cmd const[UVM_RESERVE_VA], arg ptr[inout, UVM_RESERVE_VA_PARAMS])
 ioctl$UVM_RELEASE_VA(fd fd_nvidia_uvm, cmd const[UVM_RELEASE_VA], arg ptr[inout, UVM_RELEASE_VA_PARAMS])
@@ -89,6 +96,11 @@ UvmGpuMappingAttributes {
 	gpuCachingType	int32
 	gpuFormatType	int32
 	gpuElementBits	int32
+}
+
+UVM_INITIALIZE_PARAMS {
+	flags int64 (in)
+	rmStatus NV_STATUS (out)
 }
 
 UVM_RESERVE_VA_PARAMS {
@@ -455,9 +467,8 @@ UvmToolsEventControlData {
 }
 
 UVM_TOOLS_INIT_EVENT_TRACKER_PARAMS {
-# TODO UvmEventEntry type
-	queueBuffer	int64	(in)
-	queueBufferSize	int64	(in)
+	queueBuffer	ptr[in, array[UvmEventEntry]]
+	queueBufferSize	len[queueBuffer, int64]	(in)
 	controlBuffer	ptr64[in, UvmToolsEventControlData]
 	processor	NvProcessorUuid	(in)
 	allProcessors	int32	(in)
@@ -563,4 +574,205 @@ UVM_VALIDATE_VA_RANGE_PARAMS {
 UVM_IS_8_SUPPORTED_PARAMS {
 	is8Supported	int32	(out)
 	rmStatus	NV_STATUS	(out)
+}
+
+UvmEventMigrationInfo_Lite {
+	eventType int8
+	direction int8
+	srcIndex int8
+	dstIndex int8
+	padding32Bits int32
+	address int64
+	migratedBytes int64
+	beginTimeStamp int64
+	endTimeStamp int64
+	streamId int64
+}
+
+UvmEventCpuFaultInfo {
+	eventType int8
+	accessType int8
+	padding16Bits int16
+	padding32Bits int32
+	address int64
+	timeStamp int64
+	pid int32
+	threadId int32
+	pc int64
+}
+
+UvmEventMigrationInfo {
+	eventType int8
+	migrationCause int8
+	srcIndex int8
+	dstIndex int8
+	padding32Bits int32
+	address int64
+	migratedBytes int64
+	beginTimeStamp int64
+	endTimeStamp int64
+	rangeGroupId int64
+	beginTimeStampGpu int64
+	endTimeStampGpu int64
+}
+
+UvmEventGpuFaultInfo {
+	eventType int8
+	faultType int8
+	accessType int8
+	gpuIndex int8
+	#union [
+	gpcId int16
+	channelId int16
+	#]
+	clientId int16
+	address int64
+	timeStamp int64
+	timeStampGpu int64
+	batchId int32
+	clientType int8
+	padding8Bits int8
+	padding16Bits int16
+}
+
+UvmEventGpuFaultReplayInfo {
+	eventType int8
+	gpuIndex int8
+	clientType int8
+	padding8bits int8
+	batchId int32
+	timeStamp int64
+	timeStampGpu int64
+}
+
+UvmEventFatalFaultInfo {
+	eventType int8
+	faultType int8
+	accessType int8
+	processorIndex int8
+	reason int8
+	padding8bits int8
+	padding16bits int16
+	address int64
+	timeStamp int64
+}
+
+UvmEventReadDuplicateInfo {
+	eventType int8
+	padding8bits int8
+	padding16bits int16
+	padding32bits int32
+	processors int64
+	address int64
+	size int64
+	timeStamp int64
+}
+
+UvmEventReadDuplicateInvalidateInfo {
+	eventType int8
+	residentIndex int8
+	padding16bits int16
+	padding32bits int32
+	address int64
+	size int64
+	timeStamp int64
+}
+
+UvmEventPageSizeChangeInfo {
+	eventType int8
+	processorIndex int8
+	padding16bits int16
+	size int32
+	address int64
+	timeStamp int64
+}
+
+UvmEventThrashingDetectedInfo {
+	eventType int8
+	padding8bits int8
+	padding16bits int16
+	padding32bits int32
+	processors int64
+	address int64
+	size int64
+	timeStamp int64
+}
+
+UvmEventThrottlingStartInfo {
+	eventType int8
+	processorIndex int8
+	padding16bits int16
+	padding32bits int32
+	address int64
+	timeStamp int64
+}
+
+UvmEventThrottlingEndInfo {
+	eventType int8
+	processorIndex int8
+	padding16bits int16
+	padding32bits int32
+	address int64
+	timeStamp int64
+}
+
+UvmEventMapRemoteInfo {
+	eventType int8
+	srcIndex int8
+	dstIndex int8
+	mapRemoteCause int8
+	padding32bits int32
+	address int64
+	size int64
+	timeStamp int64
+	timeStampGpu int64
+}
+
+UvmEventEvictionInfo {
+	eventType int8
+	srcIndex int8
+	dstIndex int8
+	padding8bits int8
+	padding32bits int32
+	addressOut int64
+	addressIn int64
+	size int64
+	timeStamp int64
+}
+
+UvmEventTestAccessCounterInfo {
+	eventType int8
+	srcIndex int8
+	aperture int8
+	instancePtrAperture int8
+	isVirtual int8
+	isFromCpu int8
+	veId int8
+	onManaged int8
+	value int32
+	subGranularity int32
+	tag int32
+	bank int32
+	address int64
+	instancePtr int64
+}
+
+UvmEventEntry {
+	eventType int8
+	migration_Lite UvmEventMigrationInfo_Lite
+	cpuFault UvmEventCpuFaultInfo
+	migration UvmEventMigrationInfo
+	gpuFault UvmEventGpuFaultInfo
+	gpuFaultReplay UvmEventGpuFaultReplayInfo
+	fatalFault UvmEventFatalFaultInfo
+	readDuplicate UvmEventReadDuplicateInfo
+	readDuplicateInvalidate UvmEventReadDuplicateInvalidateInfo
+	pageSizeChange UvmEventPageSizeChangeInfo
+	thrashing UvmEventThrashingDetectedInfo
+	throttlingStart UvmEventThrottlingStartInfo
+	throttlingEnd UvmEventThrottlingEndInfo
+	mapRemote UvmEventMapRemoteInfo
+	eviction UvmEventEvictionInfo
+	eventTypeFoo int8
+	accessCounter UvmEventTestAccessCounterInfo
 }
