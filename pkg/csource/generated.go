@@ -10050,27 +10050,12 @@ static void loop(void)
 #endif
 		int status = 0;
 		uint64 start = current_time_ms();
-#if SYZ_EXECUTOR && SYZ_EXECUTOR_USES_SHMEM
-		uint64 last_executed = start;
-		uint32 executed_calls = __atomic_load_n(output_data, __ATOMIC_RELAXED);
-#endif
 		for (;;) {
 			if (waitpid(-1, &status, WNOHANG | WAIT_FLAGS) == pid)
 				break;
 			sleep_ms(1);
-#if SYZ_EXECUTOR && SYZ_EXECUTOR_USES_SHMEM
-			uint64 now = current_time_ms();
-			uint32 now_executed = __atomic_load_n(output_data, __ATOMIC_RELAXED);
-			if (executed_calls != now_executed) {
-				executed_calls = now_executed;
-				last_executed = now;
-			}
-			if ((now - start < 5 * 1000) && (now - start < 3 * 1000 || now - last_executed < 1000))
+			if (current_time_ms() - start < 30 * 1000)
 				continue;
-#else
-			if (current_time_ms() - start < 5 * 1000)
-				continue;
-#endif
 			debug("killing hanging pid %d\n", pid);
 			kill_and_wait(pid, &status);
 			break;
