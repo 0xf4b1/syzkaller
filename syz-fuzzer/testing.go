@@ -145,9 +145,6 @@ func checkMachine(args *checkArgs) (*rpctype.CheckArgs, error) {
 		return nil, fmt.Errorf("sandbox=android is not supported (%v)", feat.Reason)
 	}
 	createIPCConfig(features, args.ipcConfig)
-	if err := checkSimpleProgram(args, features); err != nil {
-		return nil, err
-	}
 	return checkCalls(args, features)
 }
 
@@ -228,39 +225,6 @@ func checkRevisions(args *checkArgs) error {
 	if args.targetRevision != "" && args.targetRevision != args.target.Revision {
 		return fmt.Errorf("mismatching manager/fuzzer system call descriptions: %v vs %v",
 			args.targetRevision, args.target.Revision)
-	}
-	return nil
-}
-
-func checkSimpleProgram(args *checkArgs, features *host.Features) error {
-	log.Logf(0, "testing simple program...")
-	if err := host.Setup(args.target, features, args.featureFlags, args.ipcConfig.Executor); err != nil {
-		return fmt.Errorf("host setup failed: %v", err)
-	}
-	env, err := ipc.MakeEnv(args.ipcConfig, 0)
-	if err != nil {
-		return fmt.Errorf("failed to create ipc env: %v", err)
-	}
-	defer env.Close()
-	p := args.target.DataMmapProg()
-	output, info, hanged, err := env.Exec(args.ipcExecOpts, p)
-	if err != nil {
-		return fmt.Errorf("program execution failed: %v\n%s", err, output)
-	}
-	if hanged {
-		return fmt.Errorf("program hanged:\n%s", output)
-	}
-	if len(info.Calls) == 0 {
-		return fmt.Errorf("no calls executed:\n%s", output)
-	}
-	if info.Calls[0].Errno != 0 {
-		return fmt.Errorf("simple call failed: %+v\n%s", info.Calls[0], output)
-	}
-	if args.ipcConfig.Flags&ipc.FlagSignal != 0 && len(info.Calls[0].Signal) < 2 {
-		return fmt.Errorf("got no coverage:\n%s", output)
-	}
-	if len(info.Calls[0].Signal) < 1 {
-		return fmt.Errorf("got no fallback coverage:\n%s", output)
 	}
 	return nil
 }
