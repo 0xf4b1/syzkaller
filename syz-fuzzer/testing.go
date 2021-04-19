@@ -256,6 +256,12 @@ func checkSimpleProgram(args *checkArgs, features *host.Features) error {
 	if info.Calls[0].Errno != 0 {
 		return fmt.Errorf("simple call failed: %+v\n%s", info.Calls[0], output)
 	}
+	if args.ipcConfig.Flags&ipc.FlagSignal != 0 && len(info.Calls[0].Signal) < 2 {
+		return fmt.Errorf("got no coverage:\n%s", output)
+	}
+	if len(info.Calls[0].Signal) < 1 {
+		return fmt.Errorf("got no fallback coverage:\n%s", output)
+	}
 	return nil
 }
 
@@ -275,7 +281,21 @@ func buildCallList(target *prog.Target, enabledCalls []int, sandbox string) (
 			calls[c] = true
 		}
 	}
-	_, unsupported := target.TransitivelyEnabledCalls(calls)
+	_, unsupported, err := host.DetectSupportedSyscalls(target, sandbox)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to detect host supported syscalls: %v", err)
+	}
+	for c := range calls {
+		if reason, ok := unsupported[c]; ok {
+			log.Logf(1, "unsupported syscall: %v: %v", c.Name, reason)
+			disabled = append(disabled, rpctype.SyscallReason{
+				ID:     c.ID,
+				Reason: reason,
+			})
+			delete(calls, c)
+		}
+	}
+	_, unsupported = target.TransitivelyEnabledCalls(calls)
 	for c := range calls {
 		if reason, ok := unsupported[c]; ok {
 			log.Logf(1, "transitively unsupported: %v: %v", c.Name, reason)
